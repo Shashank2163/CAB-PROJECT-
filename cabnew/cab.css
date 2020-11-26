@@ -1,0 +1,47 @@
+.back-image {
+    background-image: linear-gradient(45deg, rgb(0 0 0 / 10%), rgb(0 0 10)), url(image2.jpg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.form-control {
+    -webkit-appearance: none;
+}
+
+.wh1 {
+    color: white;
+}
+
+.text-dec {
+    list-style-type: none;
+    padding: 0;
+}
+
+
+/* TABLE START */
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 70%;
+    margin-top: 50px;
+    margin-left: 15%;
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    width: auto;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+
+/*TABLE END  */
