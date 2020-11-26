@@ -68,8 +68,11 @@ include('../src/config.php');
             <td><a class="btn-deny" href="admin.php?user_id=<?php echo $row['user_id']; ?>&action=remove" id="remove">
                     REMOVE </a>
             </td>
-        </tr> <?php   } ?> <?php   } ?>
-    </table> <?php  } ?>
+        </tr> <?php
+                        } ?> <?php
+            } ?>
+    </table> <?php
+                } ?>
 </body>
 
 </html>

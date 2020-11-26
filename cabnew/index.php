@@ -1,4 +1,5 @@
 <?php session_start();
+// print_r($_SESSION);
 ?>
 <!doctype html>
 <html lang="en">
@@ -58,7 +59,7 @@
                 <p class="wh1">Choose range of categories and prices</p>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
-                <form class="text-center border border-light bg-light p-2" action="#" method="">
+                <form class="text-center border border-light bg-light p-2" action="#" target="" method="">
                     <p>
                         <button type="button" class="btn btn-warning">City Taxi</button>
                     </p>
@@ -66,7 +67,15 @@
                     <p class="text-success"> AC Cabs For Point Travel </p>
                     <select class="form-control " id="current">
                         <label class="col-sm-3">PICK UP</label>
-                        <option value="" selected disabled hidden>Your Current location</option>
+                        <option value="<?php if (isset($_SESSION['user_name'], $_SESSION['start'])) {
+                                            echo $_SESSION['start'];
+                                        } else {
+                                            echo "Your Pickup Location";
+                                        } ?>"><?php if (isset($_SESSION['start'], $_SESSION['start'])) {
+                                                    echo $_SESSION['start'];
+                                                } else {
+                                                    echo "Your Pickup Location";
+                                                } ?></option>
                         <option value="Charbagh">Charbagh</option>
                         <option value="Indira Nagar">Indira Nagar</option>
                         <option value="BBD">BBD </option>
@@ -76,7 +85,16 @@
                         <option value="Gorakhpur">Gorakhpur</option>
                     </select>
                     <select class="form-control " id="drop">
-                        <option value="" selected disabled hidden>Your Drop location</option>
+                        <!-- <option value="" selected disabled hidden>Your Drop location</option> -->
+                        <option value="<?php if (isset($_SESSION['user_name'], $_SESSION['end'])) {
+                                            echo $_SESSION['end'];
+                                        } else {
+                                            echo "Your Drop Location";
+                                        } ?>"><?php if (isset($_SESSION['end'], $_SESSION['end'])) {
+                                                    echo $_SESSION['end'];
+                                                } else {
+                                                    echo "Your Drop location";
+                                                } ?></option>
                         <option value="Charbagh">Charbagh</option>
                         <option value="Indira Nagar">Indira Nagar</option>
                         <option value="BBD">BBD </option>
@@ -86,7 +104,15 @@
                         <option value="Gorakhpur">Gorakhpur</option>
                     </select>
                     <select class="form-control" onchange="getval(this);" id="cab">
-                        <option value="" selected disabled hidden>Drop down to select CAB Type</option>
+                        <!-- <option value="" selected disabled hidden>Drop down to select CAB Type</option> -->
+                        <option value="<?php if (isset($_SESSION['user_name'], $_SESSION['cab'])) {
+                                            echo $_SESSION['cab'];
+                                        } ?>"><?php if (isset($_SESSION['cab'], $_SESSION['cab'])) {
+                                                    echo $_SESSION['cab'];
+                                                } else {
+                                                    echo "Drop Down To Select Cab Type";
+                                                } ?></option>
+
                         <option value="CedMicro">CedMicro</option>
                         <option value="CedMini">CedMini</option>
                         <option value="CedRoyal">CedRoyal</option>
@@ -98,7 +124,7 @@
                     <p id="message" class="bg-success"></p>
                     <p id="message1" class="bg-danger">Please Enter the Numeric Value!!</p>
                     <!-- Sign in button -->
-                    <button class="btn btn-warning btn-block" id="calculate" type="submit">Calculate Fare</button>
+                    <button class="btn btn-warning btn-block" id="calculate" type="button">Calculate Fare</button>
                     <a class="btn btn-success btn-block" id="book" href="success.php?id=1">BOOK NOW</a>
                 </form>
             </div>

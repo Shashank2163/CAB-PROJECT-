@@ -21,11 +21,7 @@ class Ride
         $result = mysqli_query($conn, $sql1);
         return $result;
     }
-    public function remove($conn, $user_id)
-    {
-        $sql = "DELETE FROM `tbl_ride` WHERE `customer_user_id`=$user_id";
-        $result = mysqli_query($conn, $sql);
-    }
+
     public function total($conn, $user_id)
     {
         $sql = "SELECT SUM(total_fare)             
@@ -47,5 +43,54 @@ class Ride
                 return $row1['SUM(total_fare)'];
             }
         }
+    }
+    public function remove($conn, $user_id)
+    {
+        $sql = "DELETE FROM `tbl_ride` WHERE `customer_user_id`=$user_id";
+        $result = mysqli_query($conn, $sql);
+    }
+    public function remove1($conn, $ride_id)
+    {
+        $sql = "DELETE FROM `tbl_ride` WHERE `ride_id`=$ride_id";
+        $result = mysqli_query($conn, $sql);
+    }
+    public function accept($conn, $ride_id)
+    {
+
+        $sql1 = "UPDATE  `tbl_ride` SET `status`=1 WHERE `ride_id`=$ride_id";
+        $result1 = mysqli_query($conn, $sql1);
+    }
+    public function deny($conn, $ride_id)
+    {
+
+        $sql2 = "UPDATE  `tbl_ride` SET `status`=0 WHERE `ride_id`=$ride_id";
+        $result2 = mysqli_query($conn, $sql2);
+    }
+    public function pending($conn)
+    {
+
+        $sql2 = "SELECT * FROM `tbl_ride` WHERE  `status`=0";
+        $result2 = mysqli_query($conn, $sql2);
+        return $result2;
+    }
+    public function success($conn)
+    {
+
+        $sql2 = "SELECT * FROM `tbl_ride` WHERE  `status`=1";
+        $result2 = mysqli_query($conn, $sql2);
+        return $result2;
+    }
+    public function allrides($conn)
+    {
+        $sql1 = "SELECT * FROM `tbl_ride`";
+        $result2 = mysqli_query($conn, $sql1);
+        return $result2;
+    }
+    public function insertloc($conn, $loc_name, $distance, $avail)
+    {
+        $sql = "INSERT INTO `tbl_location`(`name`, `distance`, `is_available`) VALUES ('$loc_name','$distance',$avail)";
+        // echo $sql;
+        $result = mysqli_query($conn, $sql);
+        // return $result;
     }
 }

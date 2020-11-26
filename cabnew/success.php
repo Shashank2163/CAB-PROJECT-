@@ -1,6 +1,5 @@
 <?php
 session_start();
-// global $result2;
 $username = $_SESSION['user_name'];
 if (!isset($_SESSION['user_name'])) {
     header("location:../login.php");
@@ -27,16 +26,13 @@ if (isset($_GET['action'], $_SESSION['user_id'])) {
         $obj1 = new Ride();
         $db = new config();
         $result =  $obj1->rideinfo($db->conn, $user_id);
-        // $result = show($result);
         $obj2 = new Ride();
         $db1 = new config();
         $result2 =  $obj1->total($db1->conn, $user_id);
         show($result, $result2);
-        // echo $result2;
     }
 }
 ?>
-
 <!doctype html>
 <html lang="en">
 
@@ -77,7 +73,6 @@ if (isset($_GET['action'], $_SESSION['user_id'])) {
                     },
                     success: function(data) {
                         $('#main').html(data);
-
                     }
                 });
             } else {
@@ -96,9 +91,7 @@ if (isset($_GET['action'], $_SESSION['user_id'])) {
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span
                     class="navbar-toggler-icon"></span> </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto mr-5">
-
-                </ul>
+                <ul class="navbar-nav ml-auto mr-5"></ul>
                 <form class="form-inline my-2 my-lg-0">
                     <a class="btn btn-warning mx-2" href="index.php?#">BOOK NOW</a>
                     <a class="btn btn-warning mx-2" href="success.php?&action=pastride">Past Ride</a>
@@ -142,11 +135,8 @@ if (isset($_GET['action'], $_SESSION['user_id'])) {
     }
     ?>
     <?php
-    // echo $result2;
     function show($result, $result2)
     {
-        // global $result;
-        // global $result2;
         echo '<table>
             <tr>
                 <th>USER ID</th>

@@ -199,3 +199,143 @@ if (isset($_POST["from_date"], $_POST["to_date"])) {
 
     echo '<table>';
 }
+
+if (isset($_POST['x'])) {
+    // include('../config.php');
+    include('../ride.php');
+    if ($_POST['x'] == 0) {
+        $db = new Config();
+        $obj1 = new Ride();
+        $result = $obj1->pending($db->conn);
+    } else  if ($_POST['x'] == 1) {
+        $db = new Config();
+        $obj1 = new Ride();
+        $result = $obj1->success($db->conn);
+        // print_r(json_decode($result));
+    } else  if ($_POST['x'] == 2) {
+        $db = new Config();
+        $obj1 = new Ride();
+        $result = $obj1->allrides($db->conn);
+        // echo json_decode($result);
+    }
+
+    echo '<table>
+    <tr>
+        <th>USER ID</th>
+        <th>RIDE DATE/TIME </th>
+        <th>FROM</th>
+        <th>TO</th>
+        <th>STATUS</th>
+        <th>WEIGHT</th>
+        <th>FARE</th>
+    </tr>';
+    $total1 = 0;
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo '<tr>
+        <td>';
+            echo $row['customer_user_id'];
+            echo '</td>
+        <td>';
+            echo $row['ride_date'];
+            echo   '</td>
+        <td>';
+            echo $row['from_distance'];
+            echo '</td>
+        <td>';
+            echo $row['to_distance'];
+            echo '</td>
+        <td>';
+            if ($row['status'] == 0) {
+                echo "PENDING";
+            } else {
+                echo "SUCCESS";
+            }
+            echo '</td>
+        <td>';
+            echo $row['luggage'];
+            echo '</td>
+        <td>';
+
+            echo $total = (int) $row['total_fare'];
+
+            $total1 = $total1 + $total;
+            '</td>
+    </tr>';
+        }
+    }
+    if ($_POST['x'] == 1) {
+        echo '<tr><td colspan="6">TOTAL EARNING </td><td>' . $total1 . '</td></tr>';
+    }
+    echo '</td></tr>';
+
+    echo '<table>';
+}
+if (isset($_POST['y'])) {
+    include('../user.php');
+    if ($_POST['y'] == 10) {
+        $db = new Config();
+        $obj1 = new User();
+        $result = $obj1->pending_user($db->conn);
+    } else  if ($_POST['y'] == 11) {
+        $db = new Config();
+        $obj1 = new User();
+        $result = $obj1->success_user($db->conn);
+    } else  if ($_POST['y'] == 12) {
+        $db = new Config();
+        $obj1 = new User();
+        $result = $obj1->all_user($db->conn);
+    }
+    echo '<table>
+    <tr>
+        <th>USER ID</th>
+        <th>RIDE DATE/TIME </th>
+        <th>FROM</th>
+        <th>TO</th>
+        <th>STATUS</th>
+        <th>MOBILE</th>
+       
+    </tr>';
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo '<tr>
+        <td>';
+            echo $row['user_id'];
+            echo '</td>
+        <td>';
+            echo $row['user_name'];
+            echo   '</td>
+        <td>';
+            echo $row['name'];
+            echo '</td>
+        <td>';
+            echo $row['dateofsignup'];
+            echo '</td>
+        <td>';
+            if ($row['isblock'] == 0) {
+                echo "PENDING";
+            } else {
+                echo "APPROVED";
+            }
+            echo '</td>
+        <td>';
+            echo $row['mobile'];
+            echo '</td>
+        </td>';
+            echo '</tr>';
+        }
+    }
+    echo '<table>';
+}
+
+
+if (isset($_POST['loc_name'])) {
+    include('../ride.php');
+    $db1 = new config();
+    $obj = new Ride();
+    $loc_name = $_POST['loc_name'];
+    $distance = $_POST['distance'];
+    $avail = $_POST['avail'];
+    $result = $obj->insertloc($db1->conn, $loc_name, $distance, $avail);
+    echo $result;
+}

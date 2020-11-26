@@ -1,7 +1,6 @@
 <?php
 session_start();
 $username = $_SESSION['user_name'];
-// print_r($_SESSION);
 if (!isset($_SESSION['user_name'])) {
     header("location:../login.php");
 }
@@ -15,7 +14,6 @@ if (isset($_GET['id'])) {
         $db1 = new config();
         $result2 =  $obj1->total1($db1->conn);
         show($result, $result2);
-        // show($result);
     }
 }
 if (isset($_GET['user_id'])) {
@@ -31,7 +29,6 @@ if (isset($_GET['user_id'])) {
         $db1 = new config();
         $result2 =  $obj1->total1($db1->conn);
         show($result, $result2);
-        // show($result);
     }
 }
 ?>
@@ -41,8 +38,6 @@ if (isset($_GET['user_id'])) {
 
 function show($result, $result2)
 {
-    $total = 0;
-
     echo '<table>
         <tr>
             <th>USER ID</th>

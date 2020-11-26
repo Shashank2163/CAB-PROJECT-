@@ -3,7 +3,6 @@
 include('config.php');
 class User
 {
-
     public function login($user, $pass, $conn)
     {
         session_start();
@@ -22,7 +21,7 @@ class User
                         $_SESSION['password'] = $row["password"];
                         $_SESSION['status'] = $row["isblock"];
                         $_SESSION['user_id'] = $row["user_id"];
-                        header('location:cabnew/index.php?#');
+                        header('location:cabnew/index.php');
                         $x = true;
                     }
                 }
@@ -32,7 +31,6 @@ class User
             }
         }
     }
-
     public function signup($username, $name, $dateofsignup, $isblock, $isadmin, $password, $repassword, $mobile, $conn)
     {
         $sql = "SELECT * FROM tbl_user";
@@ -81,5 +79,25 @@ class User
                 return $row1;
             }
         }
+    }
+    public function pending_user($conn)
+    {
+
+        $sql2 = "SELECT * FROM `tbl_user` WHERE  `isblock`=0";
+        $result2 = mysqli_query($conn, $sql2);
+        return $result2;
+    }
+    public function success_user($conn)
+    {
+
+        $sql2 = "SELECT * FROM `tbl_user` WHERE  `isblock`=1";
+        $result2 = mysqli_query($conn, $sql2);
+        return $result2;
+    }
+    public function all_user($conn)
+    {
+        $sql1 = "SELECT * FROM `tbl_user`";
+        $result2 = mysqli_query($conn, $sql1);
+        return $result2;
     }
 }
