@@ -348,3 +348,55 @@ if (isset($_POST['loc_name'])) {
     $result = $obj->insertloc($db1->conn, $loc_name, $distance, $avail);
     echo $result;
 }
+if (isset($_POST['dat'])) {
+    if ($_POST['dat'] == 5) {
+        include('../ride.php');
+        $db1 = new config();
+        $obj = new Ride();
+        $result = $obj->alllocation($db1->conn);
+        echo '<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Distance</th>
+        <th>STATUS</th>
+        <th>ACCEPT</th>
+        <th>DENY</th>
+       
+    </tr>';
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<tr>
+         <td>';
+                echo $row['id'];
+                echo '</td>
+                <td>';
+                echo $row['name'];
+                echo   '</td>
+        <td>';
+                echo $row['distance'];
+                echo '</td>
+        <td>';
+                //         echo $row['is_available'];
+                //         echo '</td>
+                // <td>';
+                if ($row['is_available'] == 0) {
+                    echo "DENY";
+                } else {
+                    echo "ALLOW";
+                }
+                echo '</td>
+        <td>';
+                // echo '<input type="submit" value="ALLOW"   id="accept">';
+                echo '<a href="location.php?id=' . $row["id"] . '&action=accept" id="btn-3">ACCEPT</a>';
+                echo '</td>
+        <td>';
+                // echo '<input type="submit" value="DENY"  id="deny">';
+                echo '<a href="location.php?id=' . $row["id"] . '&action=deny" id="btn-4">DENY</a>';
+                echo '</td>';
+                echo '</tr>';
+            }
+        }
+        echo '<table>';
+    }
+}

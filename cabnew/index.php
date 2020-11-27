@@ -75,18 +75,29 @@
                                             echo $_SESSION['start'];
                                         } else {
                                             echo "Your Pickup Location";
-                                        } ?>"><?php if (isset($_SESSION['start'], $_SESSION['start'])) {
-                                                    echo $_SESSION['start'];
-                                                } else {
-                                                    echo "Your Pickup Location";
-                                                } ?></option>
-                        <option value="Charbagh">Charbagh</option>
-                        <option value="Indira Nagar">Indira Nagar</option>
+                                        } ?>" <?php if (!isset($_SESSION['user_name'])) {
+                                                    echo " selected disabled";
+                                                } ?>><?php if (isset($_SESSION['start'], $_SESSION['start'])) {
+                                                            echo $_SESSION['start'];
+                                                        } else {
+                                                            echo "Your Pickup Location";
+                                                        } ?></option>
+                        <?php
+                        include('../ride.php');
+                        $db = new config();
+                        $obj = new Ride();
+                        $result = $obj->alllocation1($db->conn);
+                        if (mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {  ?>
+                        <option value="<?php echo $row['name'] ?>"><?php echo $row['name'] ?></option>
+                        <!-- <option value="Indira Nagar">Indira Nagar</option>
                         <option value="BBD">BBD </option>
                         <option value="Barabanki">Barabanki</option>
                         <option value="Faizabad">Faizabad</option>
                         <option value="Basti">Basti </option>
-                        <option value="Gorakhpur">Gorakhpur</option>
+                        <option value="Gorakhpur">Gorakhpur</option> -->
+                        <?php  } ?>
+                        <?php } ?>
                     </select>
                     <select class="form-control " id="drop">
                         <!-- <option value="" selected disabled hidden>Your Drop location</option> -->
@@ -94,24 +105,38 @@
                                             echo $_SESSION['end'];
                                         } else {
                                             echo "Your Drop Location";
-                                        } ?>"><?php if (isset($_SESSION['end'], $_SESSION['end'])) {
-                                                    echo $_SESSION['end'];
-                                                } else {
-                                                    echo "Your Drop location";
-                                                } ?></option>
-                        <option value="Charbagh">Charbagh</option>
+                                        } ?>" <?php if (!isset($_SESSION['user_name'])) {
+                                                    echo "selected disabled";
+                                                } ?>><?php if (isset($_SESSION['end'], $_SESSION['end'])) {
+                                                            echo $_SESSION['end'];
+                                                        } else {
+                                                            echo "Your Drop location";
+                                                        } ?></option>
+                        <?php
+                        // include('../ride.php');
+                        $db1 = new config();
+                        $obj1 = new Ride();
+                        $result1 = $obj1->alllocation1($db1->conn);
+                        if (mysqli_num_rows($result1) > 0) {
+                            while ($row1 = mysqli_fetch_assoc($result1)) { ?>
+                        <option value="<?php echo $row1['name'] ?>"><?php echo $row1['name'] ?></option>
+                        <!-- <option value="Charbagh">Charbagh</option>
                         <option value="Indira Nagar">Indira Nagar</option>
-                        <option value="BBD">BBD </option>
+                        <option value="BBD">BBD</option>
                         <option value="Barabanki">Barabanki</option>
                         <option value="Faizabad">Faizabad</option>
                         <option value="Basti">Basti </option>
-                        <option value="Gorakhpur">Gorakhpur</option>
+                        <option value="Gorakhpur">Gorakhpur</option> -->
+                        <?php } ?>
+                        <?php  } ?>
                     </select>
                     <select class="form-control" onchange="getval(this);" id="cab">
                         <!-- <option value="" selected disabled hidden>Drop down to select CAB Type</option> -->
                         <option value="<?php if (isset($_SESSION['user_name'], $_SESSION['cab'])) {
                                             echo $_SESSION['cab'];
-                                        } ?>"><?php if (isset($_SESSION['cab'], $_SESSION['cab'])) {
+                                        } ?>" <?php if (!isset($_SESSION['user_name'])) {
+                                                    echo "selected disabled";
+                                                } ?>><?php if (isset($_SESSION['cab'], $_SESSION['cab'])) {
                                                     echo $_SESSION['cab'];
                                                 } else {
                                                     echo "Drop Down To Select Cab Type";

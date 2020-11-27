@@ -1,5 +1,32 @@
 <?php
-include('navigation.php'); ?>
+session_start();
+$username = $_SESSION['user_name'];
+if (!isset($_SESSION['user_name'])) {
+    header("location:../login.php");
+}
+include('navigation.php');
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    if (isset($_GET['action'])) {
+        if ($_GET['action'] == 'accept') {
+            include('../ride.php');
+            $db1 = new config();
+            $obj = new Ride();
+            $result = $obj->allow_location($db1->conn, $id);
+            echo '<script>alert("ALLOW SUCESSFULL")</script>';
+        }
+
+        if ($_GET['action'] == 'deny') {
+            include('../ride.php');
+            $db1 = new config();
+            $obj = new Ride();
+            $result = $obj->deny_location($db1->conn, $id);
+            echo '<script>alert("DENY SUCESSFULL")</script>';
+        }
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,11 +55,30 @@ include('navigation.php'); ?>
                 }
             });
         });
+
+
+
+        $("#btn-2").click(function() {
+            $(".container5").hide();
+            $("#btn-2").hide();
+            $.ajax({
+                url: "../cabnew/ajax.php",
+                method: "POST",
+                data: {
+                    dat: 5
+                },
+                success: function(msg) {
+                    $("#main").html(msg);
+                }
+            });
+
+        });
     });
     </script>
 </head>
 
 <body>
+    <input type="button" id="btn-2" value="TO SHOW LOCATION  LIST">
     <div class="container5">
         <form action="/action_page.php">
             <div class="row">
@@ -66,7 +112,9 @@ include('navigation.php'); ?>
                 <input type="button" value="Submit" id="btn-1">
             </div>
         </form>
+
     </div>
+    <div id="main"></div>
 </body>
 
 </html>

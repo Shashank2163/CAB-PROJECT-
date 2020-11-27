@@ -99,4 +99,22 @@ class Ride
         $result2 = mysqli_query($conn, $sql1);
         return $result2;
     }
+    public function alllocation1($conn)
+    {
+        $sql1 = "SELECT `name` FROM `tbl_location` where is_available=1";
+        $result2 = mysqli_query($conn, $sql1);
+        return $result2;
+    }
+    public function allow_location($conn, $id)
+    {
+        $sql = "UPDATE `tbl_location` SET `is_available`=1 WHERE `id`=$id";
+        $result2 = mysqli_query($conn, $sql);
+        return $result2;
+    }
+    public function deny_location($conn, $id)
+    {
+        $sql = "UPDATE `tbl_location` SET `is_available`=0 WHERE `id`=$id";
+        $result2 = mysqli_query($conn, $sql);
+        return $result2;
+    }
 }
