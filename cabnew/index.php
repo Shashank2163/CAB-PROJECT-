@@ -46,7 +46,11 @@
                     </h3> -->
                     <h6 class="btn btn-warning circle"><a href="profile.php"><img src="profile.png" alt="" height="20"
                                 width="20">
-                            <figcaption>Profile</figcaption>
+                            <?php if (isset($_SESSION['user_name'])) {
+                                echo "<figcaption>" . $_SESSION['user_name'] . "</figcaption>";
+                            } else {
+                                echo "<figcaption>Profile</figcaption>";
+                            } ?>
                         </a></h6>
                 </form>
             </div>

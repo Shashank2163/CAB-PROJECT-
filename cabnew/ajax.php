@@ -8,25 +8,34 @@ if (isset($_POST['pickup']) || isset($_POST['$destination']) || isset($_POST['$c
     $pick1 = 0;
     $pick2 = 0;
     $rupee = 0;
-    $fare = array(
-        "Charbagh" => 0,
-        "Indira Nagar" => 10,
-        "BBD" => 30,
-        "Barabanki" => 60,
-        "Faizabad" => 100,
-        "Basti" => 150,
-        "Gorakhpur" => 210
-    );
-    foreach ($fare as $key => $value) {
-        if ($key == $pickup) {
-            $pick1 = $value;
+    // $fare = array(
+    //     "Charbagh" => 0,
+    //     "Indira Nagar" => 10,
+    //     "BBD" => 30,
+    //     "Barabanki" => 60,
+    //     "Faizabad" => 100,
+    //     "Basti" => 150,
+    //     "Gorakhpur" => 210
+    // );
+    include('../ride.php');
+    $fare = [];
+    $db = new config();
+    $obj = new Ride();
+    $result4 = $obj->alllocation($db->conn);
+    if (mysqli_num_rows($result4) > 0) {
+        while ($row = mysqli_fetch_assoc($result4)) {
+            array_push($fare, $row);
         }
     }
     foreach ($fare as $key => $value) {
-        if ($key == $destination) {
-            $pick2 = $value;
+        if ($value['name'] == $pickup) {
+            $pick1 = $value['distance'];
+        }
+        if ($value['name'] == $destination) {
+            $pick2 = $value['distance'];
         }
     }
+
     $distance = $pick1 - $pick2;
     $distance = abs($distance);
     $_SESSION['distance'] = $distance;

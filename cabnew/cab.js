@@ -2,6 +2,7 @@ $("#luggage").hide();
 
 function getval(sel) {
     var a = 'CedMicro';
+
     if (a == sel.value) {
         $('#weight').prop('disabled', true);
         $("#luggage").show();
@@ -54,9 +55,7 @@ $(document).ready(function() {
                     $("#calculate").show();
                     $("#message").html("Your Fare is :" + msg);
                 }
-
                 // $("#message").html(msg);
-
             }
         });
     });

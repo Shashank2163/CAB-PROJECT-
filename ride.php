@@ -93,4 +93,10 @@ class Ride
         $result = mysqli_query($conn, $sql);
         // return $result;
     }
+    public function alllocation($conn)
+    {
+        $sql1 = "SELECT * FROM `tbl_location`";
+        $result2 = mysqli_query($conn, $sql1);
+        return $result2;
+    }
 }
