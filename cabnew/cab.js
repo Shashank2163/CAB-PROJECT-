@@ -44,18 +44,15 @@ $(document).ready(function() {
                 weight: weight
             },
             success: function(msg) {
-                // $("#calculate").hide();
                 if (isNaN(msg)) {
                     $("#book").hide();
                     $("#calculate").show();
                     $("#message").html(msg);
-
                 } else {
                     $("#book").show();
                     $("#calculate").show();
                     $("#message").html("Your Fare is :" + msg);
                 }
-                // $("#message").html(msg);
             }
         });
     });

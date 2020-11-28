@@ -21,6 +21,7 @@ if (isset($_POST['submit'])) {
     $obj = new User();
     $result = $obj->update($name, $dateofsignup, $isblock, $isadmin, $password, $mobile, $db->conn);
     echo '<script>alert("Your Profile is Updated")</script>';
+    header('location:../login.php');
 }
 ?>
 <!DOCTYPE html>
@@ -57,7 +58,8 @@ if (isset($_POST['submit'])) {
                 <input type="password" placeholder="Enter Re-Password" name="repassword" value="" required>
                 <button type="submit" name="submit" value="Submit">UPDATE</button>
                 <p> <a href="../login.php" id="remove">login</a></p>
-                <p> <a href="index.php" id="remove">Home</a></p>
+                <p> <?php if ($_SESSION['user_name'] == 'admin') echo ' <a href="../admin/admin.php" id="remove">Home</a></p>';
+                    else echo '<a href="index.php" id="remove">Home</a></p>'; ?>
         </form>
     </div>
 </body>

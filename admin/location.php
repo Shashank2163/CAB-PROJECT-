@@ -68,7 +68,10 @@ if (isset($_GET['id'])) {
                     dat: 5
                 },
                 success: function(msg) {
-                    $("#main").html(msg);
+                    $("#btn").show();
+                    $("#main").html(msg + '</br><a href="location.php" id="btn">BACK</a>');
+                    // $("#btn").show();
+
                 }
             });
 
@@ -78,7 +81,7 @@ if (isset($_GET['id'])) {
 </head>
 
 <body>
-    <input type="button" id="btn-2" value="TO SHOW LOCATION  LIST">
+    <input type="button" id="btn-2" value="CLICK HERE TO SHOW LOCATION  LIST">
     <div class="container5">
         <form action="/action_page.php">
             <div class="row">
@@ -114,7 +117,9 @@ if (isset($_GET['id'])) {
         </form>
 
     </div>
-    <div id="main"></div>
+    <div id="main">
+
+    </div>
 </body>
 
 </html>

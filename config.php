@@ -2,7 +2,7 @@
 class config
 {
     public $url;
-    public   $username;
+    public $username;
     public $password;
     public $dbname;
     public $conn;

@@ -2,7 +2,7 @@
 // session_start();
 include('config.php');
 class User
-{
+{   /* FUNCTION FOR LOGIN USER */
     public function login($user, $pass, $conn)
     {
         session_start();
@@ -31,6 +31,7 @@ class User
             }
         }
     }
+    /* FUNCTION FOR SIGNUP USER */
     public function signup($username, $name, $dateofsignup, $isblock, $isadmin, $password, $repassword, $mobile, $conn)
     {
         $sql = "SELECT * FROM tbl_user";
@@ -99,5 +100,20 @@ class User
         $sql1 = "SELECT * FROM `tbl_user`";
         $result2 = mysqli_query($conn, $sql1);
         return $result2;
+    }
+    public function remove_user($conn, $user_id)
+    {
+        $sql = "DELETE FROM tbl_user WHERE `user_id`=$user_id";
+        $result = mysqli_query($conn, $sql);
+    }
+    public function accept_user($conn, $user_id)
+    {
+        $sql1 = "UPDATE  tbl_user SET isblock=1 WHERE `user_id`=$user_id";
+        $result = mysqli_query($conn, $sql1);
+    }
+    public function deny_user($conn, $user_id)
+    {
+        $sql2 = "UPDATE  tbl_user SET isblock=0 WHERE `user_id`=$user_id";
+        $result = mysqli_query($conn, $sql2);
     }
 }

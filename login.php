@@ -26,7 +26,6 @@
 
     <div class="container1">
         <h2>Login Form</h2>
-
         <form action="" method="post">
             <div class="imgcontainer">
                 <img src="avataar.png" alt="Avatar" class="avatar">

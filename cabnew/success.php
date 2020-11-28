@@ -12,7 +12,7 @@ if (!isset($_SESSION['user_name'])) {
         $weight = $_SESSION['weight'];
         $cab = $_SESSION['cab'];
         $user_id = $_SESSION['user_id'];
-        $isblock = $_SESSION['status'];
+        $isblock = 0;
         $date = date('Y-m-d H:i:s');
         $obj = new Ride();
         $db = new config();
@@ -32,12 +32,26 @@ if (isset($_GET['action'], $_SESSION['user_id'])) {
         show($result, $result2);
     }
 }
+if (isset($_GET['action'], $_SESSION['user_id'])) {
+    // include('../ride.php');
+    if ($_GET['action'] == 'fare') {
+        $user_id = $_SESSION['user_id'];
+        $obj1 = new Ride();
+        $db = new config();
+        $result =  $obj1->sort_fare($db->conn, $user_id);
+        $obj2 = new Ride();
+        $db1 = new config();
+        $result2 =  $obj1->total($db1->conn, $user_id);
+        show($result, $result2);
+    }
+}
+
+
 ?>
 <!doctype html>
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
@@ -48,8 +62,6 @@ if (isset($_GET['action'], $_SESSION['user_id'])) {
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link href="cab.css" rel="stylesheet">
-    <!-- <link href="../admin/style.css" rel="stylesheet"> -->
-
     <script src="https://kit.fontawesome.com/4b2ee26aaa.js" crossorigin="anonymous"></script>
     <script>
     $(document).ready(function() {
@@ -93,7 +105,8 @@ if (isset($_GET['action'], $_SESSION['user_id'])) {
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto mr-5"></ul>
                 <form class="form-inline my-2 my-lg-0">
-                    <a class="btn btn-warning mx-2" href="index.php?#">BOOK NOW</a>
+                    <a class="btn btn-warning mx-2" href="index.php">BOOK NOW</a>
+                    <a class="btn btn-warning mx-2" href="success.php?&action=fare">SORT BY FARE </a>
                     <a class="btn btn-warning mx-2" href="success.php?&action=pastride">Past Ride</a>
                     <a class="btn btn-warning mx-2" href="success.php?&id=2">Filter</a>
                     <a class="btn btn-warning mx-2" href="logout.php">Log Out</a>
@@ -121,14 +134,14 @@ if (isset($_GET['action'], $_SESSION['user_id'])) {
         }
     } ?>
 
-    <div id="main">
+    <div class="container-fluid" id="main">
 
     </div>
     <?php
     if (isset($_GET['id'])) {
         if ($_GET['id'] == 1) {
             echo '<div class="placedorder text-center py-5 my-5">
-        <h1>Your Ride Has Been Booked Successfully !!!!</h1>
+        <h1>Your Request has Been Send Successfully !!!!</h1>
         <p>Thank you for riding with us, we will contact you by email with your ride details.</p>
     </div>';
         }
@@ -145,6 +158,7 @@ if (isset($_GET['action'], $_SESSION['user_id'])) {
                 <th>TO</th>
                 <th>DISTANCE</th>
                 <th>WEIGHT</th>
+                <th>STATUS</th>
                 <th>FARE</th>
             </tr>';
         if (mysqli_num_rows($result) > 0) {
@@ -169,11 +183,17 @@ if (isset($_GET['action'], $_SESSION['user_id'])) {
                 echo $row['luggage'];
                 echo '</td>
                 <td>';
+                if ($row['status'] == 0)
+                    echo 'PENDING';
+                else
+                    echo 'SUCCESS';
+                echo '</td>
+                <td>';
                 echo $row['total_fare'];
                 '</td>
             </tr>';
             }
-            echo '<tr><td colspan="6">TOTAL SPEND</td><td>';
+            echo '<tr><td colspan="7">TOTAL SPEND</td><td>';
             echo $result2;
             echo '</td></tr>';
         }

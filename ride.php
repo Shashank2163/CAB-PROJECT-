@@ -21,7 +21,6 @@ class Ride
         $result = mysqli_query($conn, $sql1);
         return $result;
     }
-
     public function total($conn, $user_id)
     {
         $sql = "SELECT SUM(total_fare)             
@@ -35,8 +34,7 @@ class Ride
     }
     public function total1($conn)
     {
-        $sql = "SELECT SUM(total_fare)             
-        FROM tbl_ride";
+        $sql = "SELECT SUM(total_fare) FROM tbl_ride";
         $result2 = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result2) > 0) {
             while ($row1 = mysqli_fetch_assoc($result2)) {
@@ -56,7 +54,6 @@ class Ride
     }
     public function accept($conn, $ride_id)
     {
-
         $sql1 = "UPDATE  `tbl_ride` SET `status`=1 WHERE `ride_id`=$ride_id";
         $result1 = mysqli_query($conn, $sql1);
     }
@@ -75,7 +72,6 @@ class Ride
     }
     public function success($conn)
     {
-
         $sql2 = "SELECT * FROM `tbl_ride` WHERE  `status`=1";
         $result2 = mysqli_query($conn, $sql2);
         return $result2;
@@ -86,12 +82,11 @@ class Ride
         $result2 = mysqli_query($conn, $sql1);
         return $result2;
     }
+
     public function insertloc($conn, $loc_name, $distance, $avail)
     {
         $sql = "INSERT INTO `tbl_location`(`name`, `distance`, `is_available`) VALUES ('$loc_name','$distance',$avail)";
-        // echo $sql;
         $result = mysqli_query($conn, $sql);
-        // return $result;
     }
     public function alllocation($conn)
     {
@@ -115,6 +110,12 @@ class Ride
     {
         $sql = "UPDATE `tbl_location` SET `is_available`=0 WHERE `id`=$id";
         $result2 = mysqli_query($conn, $sql);
+        return $result2;
+    }
+    public function sort_fare($conn, $user_id)
+    {
+        $sql1 = "SELECT * FROM `tbl_ride` where `customer_user_id`=$user_id ORDER BY `total_fare` DESC";
+        $result2 = mysqli_query($conn, $sql1);
         return $result2;
     }
 }

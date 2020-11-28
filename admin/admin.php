@@ -13,19 +13,24 @@ include('../src/config.php');
     <h2>MANAGE USER</h2>
     <?php
     if (isset($_GET['user_id'])) {
+        $user_id = $_GET['user_id'];
+        include('../user.php');
         if ($_GET['action'] == 'remove') {
-            $user_id = $_GET['user_id'];
-            $sql = "DELETE FROM tbl_user WHERE `user_id`=$user_id";
-            $result = mysqli_query($conn, $sql);
+            $db = new config();
+            $obj = new User();
+            $result = $obj->remove_user($db->conn, $user_id);
         } else if ($_GET['action'] == 'accept') {
-            $user_id1 = $_GET['user_id'];
-            $sql1 = "UPDATE  tbl_user SET isblock=1 WHERE `user_id`=$user_id1";
-            $result1 = mysqli_query($conn, $sql1);
+            $db = new config();
+            $obj = new User();
+            $result = $obj->accept_user($db->conn, $user_id);
         } else if ($_GET['action'] == 'deny') {
-            $user_id2 = $_GET['user_id'];
-            $sql2 = "UPDATE  tbl_user SET isblock=0 WHERE `user_id`=$user_id2";
-            $result2 = mysqli_query($conn, $sql2);
+            $db = new config();
+            $obj = new User();
+            $result = $obj->deny_user($db->conn, $user_id);
         }
+        $db = new config();
+        $obj = new User();
+        $result = $obj->all_user($db->conn, $user_id);
     }
     ?>
     <?php show1();
@@ -40,7 +45,7 @@ include('../src/config.php');
             <th>USERNAME</th>
             <th>NAME</th>
             <th>Mobile</th>
-            <th>BLOCK(0)/UNBLOCK(1)</th>
+            <th>BLOCK/UNBLOCK</th>
             <th>DATE OF REQUEST</th>
             <th>ACCEPT</th>
             <th>DENY</th>
@@ -55,22 +60,20 @@ include('../src/config.php');
             <td><?php echo $row['user_name']; ?></td>
             <td><?php echo $row['name']; ?></td>
             <td><?php echo $row['mobile']; ?></td>
-            <td><?php echo $row['isblock'] ?></td>
+            <td><?php if ($row['isblock'] == 0) echo "BLOCK";
+                            else echo "ALLOW"; ?></td>
             <td><?php echo $row['dateofsignup'] ?></td>
-            <td>
-                <a class="btn-accept" href="admin.php?user_id=<?php echo $row['user_id']; ?>&action=accept" id="accept">
-                    ACCEPT</a>
+            <td> <a class="btn-accept" href="admin.php?user_id=<?php echo $row['user_id']; ?>&action=accept"
+                    id="accept"> ACCEPT</a>
             </td>
-            <td>
-                <a href="admin.php?user_id=<?php echo $row['user_id']; ?>&action=deny" id="deny"
-                    class="btn-deny">DENY</a>
-            </td>
+            <td> <a href="admin.php?user_id=<?php echo $row['user_id']; ?>&action=deny" id="deny"
+                    class="btn-deny">DENY</a></td>
             <td><a class="btn-deny" href="admin.php?user_id=<?php echo $row['user_id']; ?>&action=remove" id="remove">
                     REMOVE </a>
             </td>
         </tr> <?php
                         } ?> <?php
-            } ?>
+                            } ?>
     </table> <?php
                 } ?>
 </body>

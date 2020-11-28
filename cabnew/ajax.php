@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+/* FARE CALCULATION OF CUSTOMER */
 if (isset($_POST['pickup']) || isset($_POST['$destination']) || isset($_POST['$cab']) || isset($_POST['$weight'])) {
     $pickup = $_POST['pickup'];
     $destination = $_POST['destination'];
@@ -159,10 +161,24 @@ if (isset($_POST['pickup']) || isset($_POST['$destination']) || isset($_POST['$c
         echo json_encode($rupee);
     }
 }
-if (isset($_POST["from_date"], $_POST["to_date"])) {
+/* END FARE CALCULATION OF CUSTOMER */
+
+
+/* FILTRE ON DATE */
+if (isset($_POST["from_date"], $_POST["to_date"], $_SESSION['user_name'])) {
     $connect = mysqli_connect("localhost", "root", "", "cab");
     $output = '';
-    $sql = "SELECT * FROM `tbl_ride` WHERE ride_date BETWEEN '" . $_POST["from_date"] . "' AND '" . $_POST["to_date"] . "'ORDER by  ride_date ASC";
+    // $user_id = $_SESSION['user_name'];
+    $sql1 = "SELECT `customer_user_id` FROM `tbl_ride` where ride_date BETWEEN '" . $_POST["from_date"] . "' AND '" . $_POST["to_date"] . "'";
+    // echo $sql1;
+    $user_id = 0;
+    $result1 = mysqli_query($connect, $sql1);
+    if (mysqli_num_rows($result1) > 0) {
+        while ($row1 = mysqli_fetch_assoc($result1)) {
+            $user_id = $row1['customer_user_id'];
+        }
+    }
+    $sql = "SELECT * FROM `tbl_ride` WHERE 	`customer_user_id`=$user_id AND ( ride_date BETWEEN '" . $_POST["from_date"] . "' AND '" . $_POST["to_date"] . "')ORDER by  ride_date ASC";
     // echo $sql;
     $result = mysqli_query($connect, $sql);
     echo '<table>
@@ -208,9 +224,10 @@ if (isset($_POST["from_date"], $_POST["to_date"])) {
 
     echo '<table>';
 }
+/*END  FILTRE ON DATE */
 
+/* PENDING ,SUCCESS AND ALL RIDES */
 if (isset($_POST['x'])) {
-    // include('../config.php');
     include('../ride.php');
     if ($_POST['x'] == 0) {
         $db = new Config();
@@ -220,12 +237,10 @@ if (isset($_POST['x'])) {
         $db = new Config();
         $obj1 = new Ride();
         $result = $obj1->success($db->conn);
-        // print_r(json_decode($result));
     } else  if ($_POST['x'] == 2) {
         $db = new Config();
         $obj1 = new Ride();
         $result = $obj1->allrides($db->conn);
-        // echo json_decode($result);
     }
 
     echo '<table>
@@ -239,6 +254,7 @@ if (isset($_POST['x'])) {
         <th>FARE</th>
     </tr>';
     $total1 = 0;
+
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
             echo '<tr>
@@ -280,6 +296,10 @@ if (isset($_POST['x'])) {
 
     echo '<table>';
 }
+/*END  PENDING ,SUCCESS AND ALL RIDES */
+
+
+/*  PENDING ,SUCCESS AND ALL USERS */
 if (isset($_POST['y'])) {
     include('../user.php');
     if ($_POST['y'] == 10) {
@@ -303,10 +323,15 @@ if (isset($_POST['y'])) {
         <th>TO</th>
         <th>STATUS</th>
         <th>MOBILE</th>
+        <th>ALLOW</th>
+        <th>DENY</th>
+        <th>REMOVE</th>
        
     </tr>';
+    $count = 0;
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
+            $count++;
             echo '<tr>
         <td>';
             echo $row['user_id'];
@@ -331,13 +356,28 @@ if (isset($_POST['y'])) {
             echo $row['mobile'];
             echo '</td>
         </td>';
+            echo '<td>';
+            echo '<a href="alluser.php?user_id=' . $row["user_id"] . '&action=accept" id="btn-3">ACCEPT</a>';
+            echo '</td>
+        <td>';
+            echo '<a href="alluser.php?user_id=' . $row["user_id"] . '&action=deny" id="btn-4">DENY</a>';
+            echo '</td>';
+            echo '<td>';
+            echo '<a href="alluser.php?user_id=' . $row["user_id"] . '&action=remove" id="btn-4">REMOVE</a>';
             echo '</tr>';
         }
+        echo '<tr><td colspan="8">';
+        echo 'TOTAL NO USER';
+        echo '</td><td>';
+        echo  $count . '</td></tr>';
     }
     echo '<table>';
 }
 
+/* END PENDING ,SUCCESS AND ALL USERS */
 
+
+/* INSERT LOCATION, ALL LOCATION LIST */
 if (isset($_POST['loc_name'])) {
     include('../ride.php');
     $db1 = new config();
@@ -377,9 +417,6 @@ if (isset($_POST['dat'])) {
                 echo $row['distance'];
                 echo '</td>
         <td>';
-                //         echo $row['is_available'];
-                //         echo '</td>
-                // <td>';
                 if ($row['is_available'] == 0) {
                     echo "DENY";
                 } else {
@@ -387,11 +424,9 @@ if (isset($_POST['dat'])) {
                 }
                 echo '</td>
         <td>';
-                // echo '<input type="submit" value="ALLOW"   id="accept">';
                 echo '<a href="location.php?id=' . $row["id"] . '&action=accept" id="btn-3">ACCEPT</a>';
                 echo '</td>
         <td>';
-                // echo '<input type="submit" value="DENY"  id="deny">';
                 echo '<a href="location.php?id=' . $row["id"] . '&action=deny" id="btn-4">DENY</a>';
                 echo '</td>';
                 echo '</tr>';
@@ -400,3 +435,4 @@ if (isset($_POST['dat'])) {
         echo '<table>';
     }
 }
+/* END  INSERT LOCATION, ALL LOCATION LIST */

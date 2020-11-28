@@ -11,11 +11,9 @@ if (isset($_POST['submit'])) {
     $repassword = $_REQUEST['repassword'];
     $mobile = $_REQUEST['mobile'];
     $db = new config();
-
     $obj = new User();
     $obj->signup($username, $name, $dateofsignup, $isblock, $isadmin, $password, $repassword, $mobile, $db->conn);
 }
-
 ?>
 <!DOCTYPE html>
 <html>

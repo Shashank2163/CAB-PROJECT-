@@ -3,7 +3,28 @@
 session_start();
 if (!isset($_SESSION['user_name'])) {
     header("location:../login.php");
-} ?>
+}
+
+if (isset($_GET['user_id'])) {
+    $user_id = $_GET['user_id'];
+    include('../user.php');
+    if ($_GET['action'] == 'remove') {
+        $db = new config();
+        $obj = new User();
+        $result =  $obj->remove_user($db->conn, $user_id);
+    } else if ($_GET['action'] == 'accept') {
+        $db = new config();
+        $obj = new User();
+        $result =  $obj->accept_user($db->conn, $user_id);
+    } else if ($_GET['action'] == 'deny') {
+        $db = new config();
+        $obj = new User();
+        $result = $obj->deny_user($db->conn, $user_id);
+    }
+    // show1($result);
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,6 +71,7 @@ if (!isset($_SESSION['user_name'])) {
     </select>
     <input type="button" id="btn" value="PRESS">
     <div class="main"></div>
+
 </body>
 
 </html>
