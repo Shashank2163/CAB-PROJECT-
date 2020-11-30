@@ -168,8 +168,8 @@ if (isset($_POST['pickup']) || isset($_POST['$destination']) || isset($_POST['$c
 if (isset($_POST["from_date"], $_POST["to_date"], $_SESSION['user_name'])) {
     $connect = mysqli_connect("localhost", "root", "", "cab");
     $output = '';
-    // $user_id = $_SESSION['user_name'];
-    $sql1 = "SELECT `customer_user_id` FROM `tbl_ride` where ride_date BETWEEN '" . $_POST["from_date"] . "' AND '" . $_POST["to_date"] . "'";
+    $user_id = $_SESSION['user_id'];
+    $sql1 = "SELECT * FROM `tbl_ride` where  `customer_user_id`=$user_id AND (ride_date BETWEEN '" . $_POST["from_date"] . "' AND '" . $_POST["to_date"] . "')";
     // echo $sql1;
     $user_id = 0;
     $result1 = mysqli_query($connect, $sql1);
@@ -436,3 +436,55 @@ if (isset($_POST['dat'])) {
     }
 }
 /* END  INSERT LOCATION, ALL LOCATION LIST */
+
+
+if (isset($_POST["fro_date"], $_POST["t_date"])) {
+    $connect = mysqli_connect("localhost", "root", "", "cab");
+    $output = '';
+
+    $sql = "SELECT * FROM `tbl_ride` WHERE ride_date BETWEEN '" . $_POST["fro_date"] . "' AND '" . $_POST["t_date"] . "' ORDER by  ride_date ASC";
+    // echo $sql;
+    $result = mysqli_query($connect, $sql);
+    echo '<table>
+    <tr>
+        <th>USER ID</th>
+        <th>RIDE DATE/TIME </th>
+        <th>FROM</th>
+        <th>TO</th>
+        <th>DISTANCE</th>
+        <th>WEIGHT</th>
+        <th>FARE</th>
+    </tr>';
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo '<tr>
+        <td>';
+            echo $row['customer_user_id'];
+            echo '</td>
+        <td>';
+            echo $row['ride_date'];
+            echo   '</td>
+        <td>';
+            echo $row['from_distance'];
+            echo '</td>
+        <td>';
+            echo $row['to_distance'];
+            echo '</td>
+        <td>';
+            echo $row['total_distance'];
+            echo '</td>
+        <td>';
+            echo $row['luggage'];
+            echo '</td>
+        <td>';
+            echo $row['total_fare'];
+            '</td>
+    </tr>';
+        }
+    }
+    echo '<tr><td colspan="6"></td><td>';
+
+    echo '</td></tr>';
+
+    echo '<table>';
+}

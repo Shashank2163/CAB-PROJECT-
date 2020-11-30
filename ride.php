@@ -6,7 +6,7 @@ class Ride
     {
         $distance = $_SESSION['distance'];
         $sql1 = "INSERT INTO `tbl_ride`( `ride_date`, `from_distance`, `to_distance`, `total_distance`, `luggage`, `total_fare`, `status`, `customer_user_id`) 
-        VALUES ('$date','$start','$end','$distance','$weight','$fare',$isblock,$user_id)";
+        VALUES ('$date','$start','$end','$distance','$weight',$fare,$isblock,$user_id)";
         $result = mysqli_query($conn, $sql1);
     }
     public function rideinfo($conn, $user_id)
