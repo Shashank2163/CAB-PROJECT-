@@ -243,15 +243,15 @@ if (isset($_POST['x'])) {
         $result = $obj1->allrides($db->conn);
     }
 
-    echo '<table>
+    echo '<table id="myTable">
     <tr>
-        <th>USER ID</th>
-        <th>RIDE DATE/TIME </th>
-        <th>FROM</th>
-        <th>TO</th>
-        <th>STATUS</th>
-        <th>WEIGHT</th>
-        <th>FARE</th>
+        <th onclick="sortTable1(0)">USER ID</th>
+        <th onclick="sortTable(1)">RIDE DATE/TIME </th>
+        <th onclick="sortTable(2)">FROM</th>
+        <th onclick="sortTable(3)">TO</th>
+        <th onclick="sortTable(4)">STATUS</th>
+        <th onclick="sortTable1(5)">WEIGHT</th>
+        <th  onclick="sortTable1(6)">FARE</th>
     </tr>';
     $total1 = 0;
 
@@ -315,24 +315,24 @@ if (isset($_POST['y'])) {
         $obj1 = new User();
         $result = $obj1->all_user($db->conn);
     }
-    echo '<table>
+    echo '<table id="myTable"><thead>
     <tr>
-        <th>USER ID</th>
-        <th>RIDE DATE/TIME </th>
-        <th>FROM</th>
-        <th>TO</th>
-        <th>STATUS</th>
-        <th>MOBILE</th>
+        <th onclick="sortTable1(0)">USER ID</th>
+        <th >USER NAME</th>
+        <th>NAME</th>
+        <th onclick="sortTable1(1)">DATE/TIME</th>
+        <th onclick="sortTable(2)">STATUS</th>
+        <th onclick="sortTable(3)">MOBILE</th>
         <th>ALLOW</th>
         <th>DENY</th>
-        <th>REMOVE</th>
-       
-    </tr>';
+        <th>REMOVE</th>     
+    </tr>
+    </thead>';
     $count = 0;
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
             $count++;
-            echo '<tr>
+            echo '<tbody><tr>
         <td>';
             echo $row['user_id'];
             echo '</td>
@@ -364,12 +364,12 @@ if (isset($_POST['y'])) {
             echo '</td>';
             echo '<td>';
             echo '<a href="alluser.php?user_id=' . $row["user_id"] . '&action=remove" id="btn-4">REMOVE</a>';
-            echo '</tr>';
+            echo '</tr></tbody>';
         }
-        echo '<tr><td colspan="8">';
+        echo '<tfoot><tr><td colspan="8">';
         echo 'TOTAL NO USER';
         echo '</td><td>';
-        echo  $count . '</td></tr>';
+        echo  $count . '</td></tr></tfoot>';
     }
     echo '<table>';
 }
@@ -394,15 +394,14 @@ if (isset($_POST['dat'])) {
         $db1 = new config();
         $obj = new Ride();
         $result = $obj->alllocation($db1->conn);
-        echo '<table>
+        echo '<table id="myTable">
     <tr>
-        <th>ID</th>
+        <th onclick="sortTable1(0)">ID</th>
         <th>Name</th>
-        <th>Distance</th>
+        <th onclick="sortTable1(1)">Distance</th>
         <th>STATUS</th>
         <th>ACCEPT</th>
-        <th>DENY</th>
-       
+        <th>DENY</th>      
     </tr>';
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
@@ -486,5 +485,72 @@ if (isset($_POST["fro_date"], $_POST["t_date"])) {
 
     echo '</td></tr>';
 
+    echo '<table>';
+}
+
+if (isset($_POST['filter'])) {
+    // if ($_POST['filter'] == 'filter') {
+    include('../user.php');
+    $db = new config();
+    $obj = new User();
+    $filter = $_POST['filter'];
+    echo $filter;
+    $result = $obj->search_user($db->conn, $filter);
+    // echo $result;
+    echo '<table>
+    <tr>
+        <th>USER ID</th>
+        <th>RIDE DATE/TIME </th>
+        <th>FROM</th>
+        <th>TO</th>
+        <th>STATUS</th>
+        <th>MOBILE</th>
+        <th>ALLOW</th>
+        <th>DENY</th>
+        <th>REMOVE</th>    
+    </tr>';
+    $count = 0;
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $count++;
+            echo '<tr>
+        <td>';
+            echo $row['user_id'];
+            echo '</td>
+        <td>';
+            echo $row['user_name'];
+            echo   '</td>
+        <td>';
+            echo $row['name'];
+            echo '</td>
+        <td>';
+            echo $row['dateofsignup'];
+            echo '</td>
+        <td>';
+            if ($row['isblock'] == 0) {
+                echo "PENDING";
+            } else {
+                echo "APPROVED";
+            }
+            echo '</td>
+        <td>';
+            echo $row['mobile'];
+            echo '</td>
+        </td>';
+            echo '<td>';
+            echo '<a href="alluser.php?user_id=' . $row["user_id"] . '&action=accept" id="btn-3">ACCEPT</a>';
+            echo '</td>
+        <td>';
+            echo '<a href="alluser.php?user_id=' . $row["user_id"] . '&action=deny" id="btn-4">DENY</a>';
+            echo '</td>';
+            echo '<td>';
+            echo '<a href="alluser.php?user_id=' . $row["user_id"] . '&action=remove" id="btn-4">REMOVE</a>';
+            echo '</tr>';
+        }
+        echo '<tr><td colspan="8">';
+        echo 'TOTAL NO USER';
+        echo '</td><td>';
+        echo  $count . '</td></tr>';
+    }
     echo '<table>';
 }

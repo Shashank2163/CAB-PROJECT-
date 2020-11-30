@@ -23,7 +23,6 @@ if (isset($_GET['user_id'])) {
     }
     // show1($result);
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,11 +33,11 @@ if (isset($_GET['user_id'])) {
     <title>Document</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="style.css" rel="stylesheet">
+    <script src="filter.js"></script>
     <script>
     $(document).ready(function() {
         $("#btn").click(function() {
             var y = $("#ride").val();
-            // console.log(x);
             $.ajax({
                 url: "../cabnew/ajax.php",
                 method: "POST",
@@ -46,13 +45,28 @@ if (isset($_GET['user_id'])) {
                     y: y
                 },
                 success: function(msg) {
-
-                    $(".main").html(msg);
+                    $("#main").html(msg);
                 }
             });
         });
-
     });
+
+    function myFunction() {
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        var y = $("#ride").val();
+        $.ajax({
+            url: "../cabnew/ajax.php",
+            method: "POST",
+            data: {
+                filter: filter
+            },
+            success: function(msg) {
+                $("#main").html(msg);
+            }
+        });
+    }
     </script>
 </head>
 
@@ -70,7 +84,8 @@ if (isset($_GET['user_id'])) {
         </option>
     </select>
     <input type="button" id="btn" value="PRESS">
-    <div class="main"></div>
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+    <div id="main"></div>
 
 </body>
 

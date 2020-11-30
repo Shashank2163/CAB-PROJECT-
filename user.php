@@ -103,7 +103,8 @@ class User
     }
     public function remove_user($conn, $user_id)
     {
-        $sql = "DELETE FROM tbl_user WHERE `user_id`=$user_id";
+        $sql = "DELETE FROM `tbl_user` WHERE `user_id`=$user_id";
+        // echo $sql;
         $result = mysqli_query($conn, $sql);
     }
     public function accept_user($conn, $user_id)
@@ -115,5 +116,14 @@ class User
     {
         $sql2 = "UPDATE  tbl_user SET isblock=0 WHERE `user_id`=$user_id";
         $result = mysqli_query($conn, $sql2);
+    }
+    public function search_user($conn, $filter)
+    {
+        $a = $filter;
+        $sql1 = "SELECT * FROM `tbl_user`
+        WHERE user_name LIKE '$a%' ";
+        // echo $sql1;
+        $result = mysqli_query($conn, $sql1);
+        return ($result);
     }
 }

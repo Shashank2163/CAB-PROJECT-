@@ -73,6 +73,7 @@
                                             echo $_SESSION['start'];
                                         } else {
                                             echo "Your Pickup Location";
+                                            // echo " selected disabled";
                                         } ?>" <?php if (!isset($_SESSION['user_name'])) {
                                                     echo " selected disabled";
                                                 } ?>><?php if (isset($_SESSION['start'], $_SESSION['start'])) {

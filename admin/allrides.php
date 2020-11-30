@@ -13,6 +13,7 @@ if (!isset($_SESSION['user_name'])) {
     <title>Document</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="style.css" rel="stylesheet">
+    <script src="filter.js"></script>
     <script>
     $(document).ready(function() {
         $("#btn").click(function() {
@@ -48,6 +49,7 @@ if (!isset($_SESSION['user_name'])) {
         </option>
     </select>
     <input type="button" id="btn" value="PRESS">
+    <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name"> -->
     <div class="main"></div>
 </body>
 

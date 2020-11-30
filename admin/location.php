@@ -36,6 +36,7 @@ if (isset($_GET['id'])) {
     <title>Document</title>
     <link href="style.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="filter.js"></script>
     <script>
     $(document).ready(function() {
         $("#btn-1").click(function() {

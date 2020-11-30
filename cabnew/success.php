@@ -150,6 +150,7 @@ if (isset($_GET['action'], $_SESSION['user_id'])) {
     <?php
     function show($result, $result2)
     {
+        $total1 = 0;
         echo '<table>
             <tr>
                 <th>USER ID</th>
@@ -183,10 +184,13 @@ if (isset($_GET['action'], $_SESSION['user_id'])) {
                 echo $row['luggage'];
                 echo '</td>
                 <td>';
-                if ($row['status'] == 0)
+                if ($row['status'] == 0) {
                     echo 'PENDING';
-                else
+                } else {
                     echo 'SUCCESS';
+                    $total = $row['total_fare'];
+                    $total1 = $total1 + $total;
+                }
                 echo '</td>
                 <td>';
                 echo $row['total_fare'];
@@ -194,7 +198,7 @@ if (isset($_GET['action'], $_SESSION['user_id'])) {
             </tr>';
             }
             echo '<tr><td colspan="7">TOTAL SPEND</td><td>';
-            echo $result2;
+            echo $total1;
             echo '</td></tr>';
         }
     }

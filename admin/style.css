@@ -289,3 +289,9 @@
                 margin-top: 0;
             }
         }
+        
+        #myInput {
+            width: 50%;
+            padding: 10px;
+            margin: 10px;
+        }
