@@ -27,6 +27,12 @@ include('header.php'); ?>
         }
     }
     ?>
+    <select name="sort1" onchange="sortTable1(this.value,myTable)">
+        <option value="" selected hidden disabled>SORT BY</option>
+        <option value="0">Ride Id</option>
+        <option value="4">Weight</option>
+        <option value="5">Ride Fare</option>
+    </select>
     <?php
     show1();
     function show1()
@@ -35,7 +41,7 @@ include('header.php'); ?>
         $sql = "SELECT * FROM tbl_ride";
         $result = mysqli_query($conn, $sql);
     ?>
-    <table id="add">
+    <table id="myTable">
         <tr>
             <th>RIDE ID</th>
             <th>RIDE DATE</th>

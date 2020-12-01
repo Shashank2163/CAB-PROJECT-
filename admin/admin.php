@@ -6,11 +6,18 @@ if (!isset($_SESSION['user_name'])) {
 }
 include('../src/config.php');
 ?>
-<?php include('header.php'); ?>
+<?php include('header.php');
+?>
 
 <body>
     <?php include("navigation.php") ?>
     <h2>MANAGE USER</h2>
+    <select name="sort1" onchange="sortTable1(this.value,myTable)">
+        <option value="" selected hidden disabled>SORT BY</option>
+        <!-- <option value="1">Ride Date</option> -->
+        <option value="0">User Id</option>
+        <option value="3">MOBILE</option>
+    </select>
     <?php
     if (isset($_GET['user_id'])) {
         $user_id = $_GET['user_id'];
@@ -39,7 +46,7 @@ include('../src/config.php');
         include('../src/config.php');
         $sql = "SELECT * FROM tbl_user";
         $result = mysqli_query($conn, $sql); ?>
-    <table id="add">
+    <table id="myTable">
         <tr>
             <th>USER ID</th>
             <th>USERNAME</th>

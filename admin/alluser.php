@@ -49,6 +49,18 @@ if (isset($_GET['user_id'])) {
                 }
             });
         });
+        y = 12
+        $.ajax({
+            url: "../cabnew/ajax.php",
+            method: "POST",
+            data: {
+                y: y
+            },
+            success: function(msg) {
+                $("#main").html(msg);
+            }
+        });
+
     });
 
     function myFunction() {
@@ -66,6 +78,7 @@ if (isset($_GET['user_id'])) {
                 $("#main").html(msg);
             }
         });
+
     }
     </script>
 </head>
@@ -85,7 +98,15 @@ if (isset($_GET['user_id'])) {
     </select>
     <input type="button" id="btn" value="PRESS">
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+    <!-- <button onclick="sortTable1(0)">Sort BY USER ID</button>-->
+    <select name="sort1" onchange="sortTable1(this.value,myTable)">
+        <option value="" selected hidden disabled>SORT BY</option>
+        <!-- <option value="1">Ride Date</option> -->
+        <option value="0">User Id</option>
+        <option value="5">MOBILE</option>
+    </select>
     <div id="main"></div>
+
 
 </body>
 

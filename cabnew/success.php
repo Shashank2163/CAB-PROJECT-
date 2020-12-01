@@ -1,5 +1,7 @@
 <?php
 session_start();
+// unset($_SESSION['fare']);
+// $_SESSION['fare'] = 0;
 $username = $_SESSION['user_name'];
 if (!isset($_SESSION['user_name'])) {
     header("location:../login.php");
@@ -109,6 +111,7 @@ if (isset($_GET['action'], $_SESSION['user_id'])) {
                     <a class="btn btn-warning mx-2" href="success.php?&action=fare">SORT BY FARE </a>
                     <a class="btn btn-warning mx-2" href="success.php?&action=pastride">Past Ride</a>
                     <a class="btn btn-warning mx-2" href="success.php?&id=2">Filter</a>
+                    <a class="btn btn-warning mx-2" href="../admin/invoice.php">Invoice</a>
                     <a class="btn btn-warning mx-2" href="logout.php">Log Out</a>
                     </h3>
                 </form>

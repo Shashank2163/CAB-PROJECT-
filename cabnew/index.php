@@ -1,4 +1,7 @@
 <?php session_start();
+// if (isset($_SESSION['fare'])) {
+//     header("location:success.php?id=1");
+// }
 ?>
 <!doctype html>
 <html lang="en">

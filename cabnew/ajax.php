@@ -250,8 +250,10 @@ if (isset($_POST['x'])) {
         <th onclick="sortTable(2)">FROM &#x2193;</th>
         <th onclick="sortTable(3)">TO &#x2193;</th>
         <th onclick="sortTable(4)">STATUS &#x2193;</th>
-        <th onclick="sortTable1(5)">WEIGHT &#x2193;</th>
-        <th  onclick="sortTable1(6)">FARE &#x2193;</th>
+        <th onclick="sortTable(5)">DISTANCE &#x2193;</th>
+        <th onclick="sortTable1(6)">WEIGHT &#x2193;</th>
+        <th onclick="sortTable1(7)">FARE &#x2193;</th>
+        <th>DETAILS</th>
     </tr>';
     $total1 = 0;
 
@@ -278,6 +280,9 @@ if (isset($_POST['x'])) {
             }
             echo '</td>
         <td>';
+            echo $row['total_distance'];
+            echo '</td> 
+            <td>';
             echo $row['luggage'];
             echo '</td>
         <td>';
@@ -285,8 +290,11 @@ if (isset($_POST['x'])) {
             echo $total = (int) $row['total_fare'];
 
             $total1 = $total1 + $total;
-            '</td>
-    </tr>';
+            echo '</td>';
+            echo '<td>';
+            echo '<a href="invoice.php?user_id=' . $row["ride_id"] . '&action=invoice" id="btn-3">Details</a>';
+            echo '</td>';
+            echo  '</tr>';
         }
     }
     if ($_POST['x'] == 1) {

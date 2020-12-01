@@ -45,9 +45,9 @@ function sortTable(n) {
     }
 }
 
-function sortTable1(n) {
+function sortTable1(n, ab) {
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-    table = document.getElementById("myTable");
+    table = ab;
     switching = true;
 
     dir = "asc";
