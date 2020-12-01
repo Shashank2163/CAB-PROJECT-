@@ -1,7 +1,5 @@
 <?php
 session_start();
-// unset($_SESSION['fare']);
-// $_SESSION['fare'] = 0;
 $username = $_SESSION['user_name'];
 if (!isset($_SESSION['user_name'])) {
     header("location:../login.php");

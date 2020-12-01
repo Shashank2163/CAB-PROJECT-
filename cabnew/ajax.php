@@ -298,7 +298,7 @@ if (isset($_POST['x'])) {
         }
     }
     if ($_POST['x'] == 1) {
-        echo '<tr><td colspan="6">TOTAL EARNING </td><td>' . $total1 . '</td></tr>';
+        echo '<tr><td colspan="8">TOTAL EARNING </td><td>' . $total1 . '</td></tr>';
     }
     echo '</td></tr>';
 
