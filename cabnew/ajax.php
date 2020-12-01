@@ -245,13 +245,13 @@ if (isset($_POST['x'])) {
 
     echo '<table id="myTable">
     <tr>
-        <th onclick="sortTable1(0)">USER ID</th>
-        <th onclick="sortTable(1)">RIDE DATE/TIME </th>
-        <th onclick="sortTable(2)">FROM</th>
-        <th onclick="sortTable(3)">TO</th>
-        <th onclick="sortTable(4)">STATUS</th>
-        <th onclick="sortTable1(5)">WEIGHT</th>
-        <th  onclick="sortTable1(6)">FARE</th>
+        <th onclick="sortTable1(0)">USER ID &#x2193;</th>
+        <th onclick="sortTable(1)">RIDE DATE/TIME  &#x2193;</th>
+        <th onclick="sortTable(2)">FROM &#x2193;</th>
+        <th onclick="sortTable(3)">TO &#x2193;</th>
+        <th onclick="sortTable(4)">STATUS &#x2193;</th>
+        <th onclick="sortTable1(5)">WEIGHT &#x2193;</th>
+        <th  onclick="sortTable1(6)">FARE &#x2193;</th>
     </tr>';
     $total1 = 0;
 
@@ -317,12 +317,12 @@ if (isset($_POST['y'])) {
     }
     echo '<table id="myTable"><thead>
     <tr>
-        <th onclick="sortTable1(0)">USER ID</th>
+        <th onclick="sortTable1(0)">USER ID &#x2193;</th>
         <th >USER NAME</th>
         <th>NAME</th>
-        <th onclick="sortTable1(1)">DATE/TIME</th>
-        <th onclick="sortTable(2)">STATUS</th>
-        <th onclick="sortTable(3)">MOBILE</th>
+        <th onclick="sortTable1(1)">DATE/TIME &#x2193;</th>
+        <th onclick="sortTable(2)">STATUS &#x2193;</th>
+        <th onclick="sortTable(3)">MOBILE &#x2193;</th>
         <th>ALLOW</th>
         <th>DENY</th>
         <th>REMOVE</th>     
@@ -396,9 +396,9 @@ if (isset($_POST['dat'])) {
         $result = $obj->alllocation($db1->conn);
         echo '<table id="myTable">
     <tr>
-        <th onclick="sortTable1(0)">ID</th>
+        <th onclick="sortTable1(0)">ID &#x2193;</th>
         <th>Name</th>
-        <th onclick="sortTable1(1)">Distance</th>
+        <th onclick="sortTable1(1)">Distance &#x2193;</th>
         <th>STATUS</th>
         <th>ACCEPT</th>
         <th>DENY</th>      

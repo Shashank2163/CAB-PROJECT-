@@ -43,6 +43,9 @@ if (isset($_GET['id'])) {
             var loc_name = $("#location_name").val();
             var distance = $("#distance").val();
             var avail = $("#avail").val();
+            if (distance == "" || loc_name == "") {
+                return alert("PLEASE FIELD VALUE");
+            }
             $.ajax({
                 url: "../cabnew/ajax.php",
                 method: "POST",
@@ -90,7 +93,7 @@ if (isset($_GET['id'])) {
                     <label for="locname">LOCATION NAME</label>
                 </div>
                 <div class="col-75">
-                    <input type="text" id="location_name" name="firstname" placeholder="Location Name..">
+                    <input type="text" id="location_name" name="firstname" placeholder="Location Name.." required>
                 </div>
             </div>
             <div class="row">
@@ -98,7 +101,7 @@ if (isset($_GET['id'])) {
                     <label for="distance">DISTANCE</label>
                 </div>
                 <div class="col-75">
-                    <input type="text" id="distance" name="lastname" placeholder="Distance..">
+                    <input type="text" id="distance" name="lastname" placeholder="Distance.." required>
                 </div>
             </div>
             <div class="row">
@@ -113,7 +116,7 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
             <div class="row">
-                <input type="button" value="Submit" id="btn-1">
+                <input type="submit" value="Submit" id="btn-1">
             </div>
         </form>
 
