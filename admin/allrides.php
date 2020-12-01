@@ -47,26 +47,28 @@ if (!isset($_SESSION['user_name'])) {
 
 <body>
     <?php include("navigation.php") ?>
-    <select id="ride">
-        <option value="2">
-            ALL RIDES
-        </option>
-        <option value="0">
-            PENDING RIDES
-        </option>
-        <option value="1">
-            SUCCESSFULL RIDES
-        </option>
-    </select>
-    <input type="button" id="btn" value="PRESS">
-    <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name"> -->
-    <!-- <label for="sorting">Sort BY</label> -->
-    <select name="sort1" onchange="sortTable1(this.value,myTable)">
-        <option value="" selected hidden disabled>SORT BY</option>
-        <option value="5">Distance</option>
-        <option value="6">Weight</option>
-        <option value="7">Ride Fare</option>
-    </select>
+    <div id="ride1"> <select id="ride">
+            <option value="2">
+                ALL RIDES
+            </option>
+            <option value="0">
+                PENDING RIDES
+            </option>
+            <option value="1">
+                SUCCESSFULL RIDES
+            </option>
+        </select>
+        <input type="button" id="btn" value="PRESS">
+        <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name"> -->
+        <!-- <label for="sorting">Sort BY</label> -->
+        <select name="sort1" onchange="sortTable1(this.value,myTable)">
+            <option value="" selected hidden disabled>SORT BY</option>
+            <option value="5">Distance</option>
+            <option value="6">Weight</option>
+            <option value="7">Ride Fare</option>
+        </select>
+    </div>
+
     <div class="main"></div>
 </body>
 

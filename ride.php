@@ -118,4 +118,62 @@ class Ride
         $result2 = mysqli_query($conn, $sql1);
         return $result2;
     }
+    function countride($conn)
+    {
+        $sql = "SELECT * FROM tbl_ride";
+        $result = $conn->query($sql);
+        $count = $result->num_rows;
+
+        return $count;
+    }
+
+    function pcountride($conn)
+    {
+        $sql = "SELECT * FROM tbl_ride WHERE status=1";
+        $result = $conn->query($sql);
+        $count = $result->num_rows;
+
+        return $count;
+    }
+
+    function cocountride($conn)
+    {
+        $sql = "SELECT * FROM tbl_ride WHERE status=2";
+        $result = $conn->query($sql);
+        $count = $result->num_rows;
+
+        return $count;
+    }
+
+    function cacountride($conn)
+    {
+        $sql = "SELECT * FROM tbl_ride WHERE status=0";
+        $result = $conn->query($sql);
+        $count = $result->num_rows;
+
+        return $count;
+    }
+
+    function countuser($conn)
+    {
+        $sql = "SELECT * FROM `tbl_user`";
+        $result = $conn->query($sql);
+        $count = $result->num_rows;
+        return $count;
+    }
+
+    function acountuser($conn)
+    {
+        $sql = "SELECT * FROM tbl_user WHERE isblock=1";
+        $result = $conn->query($sql);
+        $count = $result->num_rows;
+        return $count;
+    }
+    function pcountuser($conn)
+    {
+        $sql = "SELECT * FROM tbl_user WHERE isblock=1";
+        $result = $conn->query($sql);
+        $count = $result->num_rows;
+        return $count;
+    }
 }

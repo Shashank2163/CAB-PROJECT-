@@ -16,7 +16,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>Hello, world!</title>
+    <title>CED CAB</title>
     <script src="cab.js">
     </script>
     <link href="cab.css" rel="stylesheet">
@@ -45,14 +45,15 @@
                     } ?>
                 </ul>
                 <form class=" form-inline my-2 my-lg-0">
-                    <h6 class="btn btn-warning circle"><a href="profile.php"><img src="profile.png" alt="" height="20"
-                                width="20">
-                            <?php if (isset($_SESSION['user_name'])) {
-                                echo "<figcaption>" . $_SESSION['user_name'] . "</figcaption>";
-                            } else {
-                                echo "<figcaption>Profile</figcaption>";
-                            } ?>
-                        </a></h6>
+
+                    <?php if (isset($_SESSION['user_name'])) {
+                        echo '<h6 class="btn btn-warning circle"><a href="profile.php"><img src="profile.png" alt="" height="20"
+                                width="20">';
+                        echo "<figcaption>" . $_SESSION['user_name'] . "</figcaption>";
+                    } else {
+                        // echo "<figcaption>Profile</figcaption>";
+                    } ?>
+                    </a></h6>
                 </form>
             </div>
         </nav>
@@ -158,7 +159,7 @@
                 <div class="col-md-4 col-sm-4  col-lg-4 col-xs-4 text-center">
                     <div class="row py-2">
                         <div class="col-md-6 col-sm-6 col-lg-4">
-                            <a class="btn btn-warning" href="index.php">Log Out</a>
+                            <!-- <a class="btn btn-warning" href="index.php">Log Out</a> -->
                         </div>
                     </div>
                 </div>

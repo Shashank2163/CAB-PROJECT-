@@ -27,7 +27,7 @@ include('header.php'); ?>
         }
     }
     ?>
-    <select name="sort1" onchange="sortTable1(this.value,myTable)">
+    <select name="sort1" id="ride1" onchange="sortTable1(this.value,myTable)">
         <option value="" selected hidden disabled>SORT BY</option>
         <option value="0">Ride Id</option>
         <option value="4">Weight</option>

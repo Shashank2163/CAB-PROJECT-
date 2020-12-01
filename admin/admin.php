@@ -11,8 +11,7 @@ include('../src/config.php');
 
 <body>
     <?php include("navigation.php") ?>
-    <h2>MANAGE USER</h2>
-    <select name="sort1" onchange="sortTable1(this.value,myTable)">
+    <select name="sort1" id="sort1" onchange="sortTable1(this.value,myTable)">
         <option value="" selected hidden disabled>SORT BY</option>
         <!-- <option value="1">Ride Date</option> -->
         <option value="0">User Id</option>

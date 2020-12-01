@@ -65,6 +65,7 @@
             border-collapse: collapse;
             width: 70%;
             margin-top: 50px;
+            margin-left: 100px;
         }
         
         td,
@@ -160,7 +161,8 @@
         
         #btn {
             padding: 15px;
-            margin: 30px;
+            /* margin: 30px; */
+            margin: 30px 10px 59px 100px;
             padding-left: 51px;
             padding-right: 50px;
             color: white;
@@ -213,6 +215,18 @@
             cursor: pointer;
             margin-top: 30px;
             margin-left: 311px;
+            align-items: center;
+        }
+        
+        #btn-9 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 100px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 30px;
+            margin-left: 283px;
             align-items: center;
         }
         
@@ -302,4 +316,13 @@
             width: 50%;
             padding: 10px;
             margin: 10px;
+        }
+        
+        #sort1 {
+            margin-left: 102px;
+            margin-top: 50px;
+        }
+        
+        #ride1 {
+            margin-left: 100px;
         }

@@ -138,7 +138,7 @@
                     <table>
                         <tr>
                             <td class="title">
-                                <h1>CED CAB</h1>
+                                <h3>CED CAB</h3>
                             </td>
 
                             <td>
@@ -231,7 +231,9 @@
                     &#x20B9 <?php echo $total_fare; ?></td>
             </tr>
         </table>
-        <a class="btn" href="../admin/logout.php">LOG OUT</a>
+        <a class="btn" href="../admin/logout.php">LOG OUT</a></br></br>
+        <button onclick="window.print()">Print this page</button>
+
     </div>
 </body>
 
