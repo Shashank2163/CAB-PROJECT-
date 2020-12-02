@@ -59,8 +59,6 @@ if (!isset($_SESSION['user_name'])) {
             </option>
         </select>
         <input type="button" id="btn" value="PRESS">
-        <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name"> -->
-        <!-- <label for="sorting">Sort BY</label> -->
         <select name="sort1" onchange="sortTable1(this.value,myTable)">
             <option value="" selected hidden disabled>SORT BY</option>
             <option value="5">Distance</option>
@@ -68,7 +66,6 @@ if (!isset($_SESSION['user_name'])) {
             <option value="7">Ride Fare</option>
         </select>
     </div>
-
     <div class="main"></div>
 </body>
 

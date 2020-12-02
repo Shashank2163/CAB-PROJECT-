@@ -292,7 +292,12 @@ if (isset($_POST['x'])) {
             $total1 = $total1 + $total;
             echo '</td>';
             echo '<td>';
-            echo '<a href="invoice.php?user_id=' . $row["ride_id"] . '&action=invoice" id="btn-3">Details</a>';
+            if ($row['status'] == 0) {
+                echo "PENDING";
+            } else {
+                echo '<a href="invoice.php?user_id=' . $row["ride_id"] . '&action=invoice" id="btn-3">INVOICE</a>';
+            }
+            // echo '<a href="invoice.php?user_id=' . $row["ride_id"] . '&action=invoice" id="btn-3">Details</a>';
             echo '</td>';
             echo  '</tr>';
         }
@@ -502,7 +507,7 @@ if (isset($_POST['filter'])) {
     $db = new config();
     $obj = new User();
     $filter = $_POST['filter'];
-    echo $filter;
+    // echo $filter;
     $result = $obj->search_user($db->conn, $filter);
     // echo $result;
     echo '<table>

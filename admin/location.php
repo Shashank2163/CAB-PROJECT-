@@ -39,7 +39,7 @@ if (isset($_GET['id'])) {
     <script src="filter.js"></script>
     <script>
     $(document).ready(function() {
-        $("#btn-1").click(function() {
+        $("#btn-9").click(function() {
             var loc_name = $("#location_name").val();
             var distance = $("#distance").val();
             var avail = $("#avail").val();
@@ -87,13 +87,13 @@ if (isset($_GET['id'])) {
 <body>
     <input type="button" id="btn-2" value="CLICK HERE TO SHOW LOCATION  LIST">
     <div class="container5">
-        <form action="/action_page.php">
+        <form action="">
             <div class="row">
                 <div class="col-25">
                     <label for="locname">LOCATION NAME</label>
                 </div>
                 <div class="col-75">
-                    <input type="text" id="location_name" name="firstname" placeholder="Location Name.." required>
+                    <input type="text" id="location_name" name="location_name" placeholder="Location Name.." required>
                 </div>
             </div>
             <div class="row">
@@ -101,7 +101,7 @@ if (isset($_GET['id'])) {
                     <label for="distance">DISTANCE</label>
                 </div>
                 <div class="col-75">
-                    <input type="text" id="distance" name="lastname" placeholder="Distance.." required>
+                    <input type="number" id="distance" id="distance" placeholder="Distance.." required>
                 </div>
             </div>
             <div class="row">
@@ -116,7 +116,7 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
             <div class="row">
-                <input type="submit" value="Submit" id="btn-9">
+                <input type="button" value="Submit" id="btn-9">
             </div>
         </form>
 

@@ -102,7 +102,6 @@
 
 <body>
     <div class="invoice-box">
-
         <?php
         $rideid;
         include('../src/config.php');
@@ -111,7 +110,6 @@
             $user_id = $_GET['user_id'];
             $sql = "SELECT * FROM tbl_ride where `ride_id`=$user_id";
             echo '<a class="btn btn-warning" href="admin.php">Home</a>';
-            // echo $user_id;
         } else {
             if (isset($_SESSION['user_name'])) {
                 $user_id = $_SESSION['user_id'];
@@ -140,7 +138,6 @@
                             <td class="title">
                                 <h3>CED CAB</h3>
                             </td>
-
                             <td>
                                 Invoice #: <?php echo $rideid; ?><br>
                                 Ride Date:<?php echo $ride_date; ?><br>
@@ -161,60 +158,27 @@
             </tr>
 
             <tr class="heading">
-                <td>
-                    Toatal Distance
-                </td>
-
-                <td>
-                    Distance
-                </td>
+                <td> Toatal Distance</td>
+                <td> Distance</td>
             </tr>
-
             <tr class="details">
-                <td>
-                    Total Distance
-                </td>
-                <td>
-                    <?php echo $total_distance; ?>
-                </td>
+                <td> Total Distance</td>
+                <td> <?php echo $total_distance; ?></td>
             </tr>
-
             <tr class="heading">
-                <td>
-                    From
-                </td>
-
-                <td>
-                    To
-                </td>
+                <td> From </td>
+                <td>To </td>
             </tr>
-
             <tr class="item">
-                <td>
-                    <?php echo $form_distance; ?>
-
-                </td>
-
-                <td>
-                    <?php echo $to_distance; ?>
-                </td>
+                <td><?php echo $form_distance; ?></td>
+                <td><?php echo $to_distance; ?></td>
             </tr>
-
             <tr class="item">
-                <td>
-                    Luggage
-                </td>
-
-                <td>
-                    <?php echo $luggage; ?>
-                </td>
+                <td> Luggage</td>
+                <td> <?php echo $luggage; ?> </td>
             </tr>
-
             <tr class="item last">
-                <td>
-                    Status
-                </td>
-
+                <td> Status</td>
                 <td>
                     <?php if ($status == 1) {
                         echo 'SUCCESS';
@@ -223,17 +187,13 @@
                     } ?>
                 </td>
             </tr>
-
             <tr class="total">
                 <td> TOTAL FARE </td>
-
-                <td>
-                    &#x20B9 <?php echo $total_fare; ?></td>
+                <td> &#x20B9 <?php echo $total_fare; ?></td>
             </tr>
         </table>
         <a class="btn" href="../admin/logout.php">LOG OUT</a></br></br>
         <button onclick="window.print()">Print this page</button>
-
     </div>
 </body>
 

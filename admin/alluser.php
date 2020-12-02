@@ -99,17 +99,12 @@ if (isset($_GET['user_id'])) {
         <input type="button" id="btn" value="PRESS">
         <select name="sort1" onchange="sortTable1(this.value,myTable)">
             <option value="" selected hidden disabled>SORT BY</option>
-            <!-- <option value="1">Ride Date</option> -->
             <option value="0">User Id</option>
             <option value="5">MOBILE</option>
         </select>
         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
-        <!-- <button onclick="sortTable1(0)">Sort BY USER ID</button>-->
     </div>
-
     <div id="main"></div>
-
-
 </body>
 
 </html>

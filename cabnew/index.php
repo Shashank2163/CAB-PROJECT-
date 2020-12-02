@@ -1,8 +1,12 @@
 <?php session_start();
-// if (isset($_SESSION['fare'])) {
-//     header("location:success.php?id=1");
-// }
+if (!isset($_SESSION['user_name'])) {
+    session_unset();
+    unset($_SESSION['start'], $_SESSION['end'], $_SESSION['weight'], $_SESSION['cab']);
+    session_destroy();
+}
 ?>
+<!-- <a class="btn btn-warning mx-2" href="success.php?&action=fare">SORT BY FARE </a> -->
+<!-- <a class="btn btn-warning mx-2" href="success.php?&id=2">FILTRE</a> -->
 <!doctype html>
 <html lang="en">
 
@@ -34,8 +38,6 @@
                 <ul class="navbar-nav ml-auto mr-5">
                     <?php if (isset($_SESSION['user_name'])) {
                         echo '<a class="btn btn-warning mx-2 " href="success.php?&action=pastride">PAST RIDE</a>
-                        <a class="btn btn-warning mx-2" href="success.php?&action=fare">SORT BY FARE </a>
-                    <a class="btn btn-warning mx-2" href="success.php?&id=2">FILTRE</a>
                     <a class="btn btn-warning" href="../admin/logout.php">LOG OUT</a>';
                     }
                     ?>
@@ -135,7 +137,17 @@
                         <option value="CedSUV">CedSUV</option>
                     </select>
                     <!-- Email -->
-                    <input type="text" id="weight" class="form-control mb-4" placeholder="Enter Weight in Kg">
+                    <?php if (isset($_SESSION['user_name'], $_SESSION['weight'])) {
+                        if ($_SESSION['weight'] > 0) {
+                            echo  '<input type="text" id="weight" class="form-control mb-4" value="' . $_SESSION['weight'] . '">';
+                        } else {
+                            echo ' <input type="text" id="weight" class="form-control mb-4" placeholder="Enter Weight in Kg">';
+                        }
+                    } else {
+                        echo ' <input type="text" id="weight" class="form-control mb-4" placeholder="Enter Weight in Kg">';
+                    }
+                    ?>
+                    <!-- <input type="text" id="weight" class="form-control mb-4" placeholder="Enter Weight in Kg"> -->
                     <p id="luggage" class="bg-danger">Luggage is Not Available</p>
                     <p id="message" class="bg-success"></p>
                     <p id="message1" class="bg-danger">Please Enter the Numeric Value!!</p>

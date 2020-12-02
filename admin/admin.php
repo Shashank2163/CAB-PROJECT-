@@ -13,7 +13,6 @@ include('../src/config.php');
     <?php include("navigation.php") ?>
     <select name="sort1" id="sort1" onchange="sortTable1(this.value,myTable)">
         <option value="" selected hidden disabled>SORT BY</option>
-        <!-- <option value="1">Ride Date</option> -->
         <option value="0">User Id</option>
         <option value="3">MOBILE</option>
     </select>

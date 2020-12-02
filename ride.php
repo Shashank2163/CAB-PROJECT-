@@ -34,7 +34,7 @@ class Ride
     }
     public function total1($conn)
     {
-        $sql = "SELECT SUM(total_fare) FROM tbl_ride";
+        $sql = "SELECT SUM(total_fare) FROM tbl_ride where status=1";
         $result2 = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result2) > 0) {
             while ($row1 = mysqli_fetch_assoc($result2)) {
@@ -129,7 +129,7 @@ class Ride
 
     function pcountride($conn)
     {
-        $sql = "SELECT * FROM tbl_ride WHERE status=1";
+        $sql = "SELECT * FROM tbl_ride WHERE status=0";
         $result = $conn->query($sql);
         $count = $result->num_rows;
 
@@ -138,7 +138,7 @@ class Ride
 
     function cocountride($conn)
     {
-        $sql = "SELECT * FROM tbl_ride WHERE status=2";
+        $sql = "SELECT * FROM tbl_ride WHERE status=1";
         $result = $conn->query($sql);
         $count = $result->num_rows;
 
@@ -171,7 +171,31 @@ class Ride
     }
     function pcountuser($conn)
     {
-        $sql = "SELECT * FROM tbl_user WHERE isblock=1";
+        $sql = "SELECT * FROM tbl_user WHERE isblock=0";
+        $result = $conn->query($sql);
+        $count = $result->num_rows;
+        return $count;
+    }
+    function all_location1($conn)
+    {
+        $sql = "SELECT * FROM tbl_location";
+        $result = $conn->query($sql);
+        $count = $result->num_rows;
+        return $count;
+    }
+
+
+    function blocked_location1($conn)
+    {
+        $sql = "SELECT * FROM tbl_location WHERE is_available=0";
+        $result = $conn->query($sql);
+        $count = $result->num_rows;
+        return $count;
+    }
+
+    function allow_location1($conn)
+    {
+        $sql = "SELECT * FROM tbl_location WHERE is_available=1";
         $result = $conn->query($sql);
         $count = $result->num_rows;
         return $count;

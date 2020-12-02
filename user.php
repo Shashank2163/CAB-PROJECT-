@@ -15,7 +15,7 @@ class User
                     if ($row['is_admin'] == 2) {
                         $_SESSION['user_name'] = $row["user_name"];
                         $_SESSION['password'] = $row["password"];
-                        header('location:admin/admin.php');
+                        header('location:admin/');
                     } else if ($row['isblock'] == 1) {
                         $_SESSION['user_name'] = $row["user_name"];
                         $_SESSION['password'] = $row["password"];
@@ -27,7 +27,7 @@ class User
                 }
             }
             if ($x) {
-                echo  "Invalid Username Or Password";
+                echo  "<script>alert('Invalid Username Or Password');</script>";
             }
         }
     }
@@ -47,7 +47,7 @@ class User
             }
         }
         if ($y) {
-            echo "*USERNAME ALREADY EXIST";
+            echo "<script>alert('Username already Exist');</script>";
         }
         if ($password != $repassword) {
             echo "*PASSWORD IS NOT MATCHED";
