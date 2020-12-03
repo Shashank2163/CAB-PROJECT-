@@ -26,9 +26,6 @@ echo '<h1>ADMIN PANEL</h1>
                     <a class="nav-link text-light" href="location.php">ADD LOCATION</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="../cabnew/profile.php">RESET PASSWORD</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link text-light" href="logout.php">LOG OUT</a>
                 </li>
             </ul>

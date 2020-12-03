@@ -15,7 +15,7 @@ if (!isset($_SESSION['user_name'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>Hello, world!</title>
+    <title></title>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link href="style.css" rel="stylesheet">
@@ -72,5 +72,25 @@ if (!isset($_SESSION['user_name'])) {
     </div>
     <div id="main"></div>
 </body>
+<footer>
+    <div class="container-fluid py-5">
+        <div class="row">
+            <div class=" col-md-4  col-sm-4 col-lg-4  col-xs-4 py-2 text-center"> <i
+                    class="fab fa-facebook-f fa-lg white-text px-2"> </i> <i
+                    class="fab fa-twitter fa-lg white-text px-2 "> </i> <i
+                    class="fab fa-instagram fa-lg white-text px-2"> </i> </div>
+            <div class=" col-md-4  col-sm-4  col-lg-4 col-xs-4 text-center">
+                <h3 class="btn btn-warning">CED <span class="text-danger">CAB</span></h3>
+            </div>
+            <div class="col-md-4 col-sm-4  col-lg-4 col-xs-4 text-center">
+                <div class="row py-2">
+                    <div class="col-md-6 col-sm-6 col-lg-4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</footer>
 
 </html>

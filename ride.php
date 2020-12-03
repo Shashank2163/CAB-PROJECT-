@@ -68,6 +68,23 @@ class Ride
 
         $sql2 = "SELECT * FROM `tbl_ride` WHERE  `status`=0";
         $result2 = mysqli_query($conn, $sql2);
+
+        return $result2;
+    }
+    public function cancelride1($conn)
+    {
+
+        $sql2 = "SELECT * FROM `tbl_ride` WHERE  `status`=2";
+        $result2 = mysqli_query($conn, $sql2);
+
+        return $result2;
+    }
+    public function cancel_ride($conn, $ride_id)
+    {
+
+        $sql2 = "UPDATE  `tbl_ride` SET `status`=2 WHERE `ride_id`=$ride_id";
+        // echo $sql2;
+        $result2 = mysqli_query($conn, $sql2);
         return $result2;
     }
     public function success($conn)
@@ -79,6 +96,12 @@ class Ride
     public function allrides($conn)
     {
         $sql1 = "SELECT * FROM `tbl_ride`";
+        $result2 = mysqli_query($conn, $sql1);
+        return $result2;
+    }
+    public function allrides3($conn)
+    {
+        $sql1 = "SELECT `ride_date`,`total_fare` FROM `tbl_ride`";
         $result2 = mysqli_query($conn, $sql1);
         return $result2;
     }
@@ -112,6 +135,13 @@ class Ride
         $result2 = mysqli_query($conn, $sql);
         return $result2;
     }
+
+    public function remove_location($conn, $id)
+    {
+        $sql = "DELETE FROM `tbl_location` WHERE  `id`=$id";
+        $result2 = mysqli_query($conn, $sql);
+        return $result2;
+    }
     public function sort_fare($conn, $user_id)
     {
         $sql1 = "SELECT * FROM `tbl_ride` where `customer_user_id`=$user_id ORDER BY `total_fare` DESC";
@@ -129,12 +159,13 @@ class Ride
 
     function pcountride($conn)
     {
-        $sql = "SELECT * FROM tbl_ride WHERE status=0";
+        $sql = "SELECT * FROM tbl_ride WHERE status=2";
         $result = $conn->query($sql);
         $count = $result->num_rows;
 
         return $count;
     }
+
 
     function cocountride($conn)
     {

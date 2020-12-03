@@ -109,7 +109,7 @@
         if (isset($_GET['user_id'])) {
             $user_id = $_GET['user_id'];
             $sql = "SELECT * FROM tbl_ride where `ride_id`=$user_id";
-            echo '<a class="btn btn-warning" href="admin.php">Home</a>';
+            echo '<a class="btn btn-warning" href="index.php">Home</a>';
         } else {
             if (isset($_SESSION['user_name'])) {
                 $user_id = $_SESSION['user_id'];

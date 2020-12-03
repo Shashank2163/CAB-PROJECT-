@@ -1,7 +1,9 @@
 <?php
 session_start();
 $username = $_SESSION['user_name'];
-if (!isset($_SESSION['user_name'])) {
+if (isset($_SESSION['is_user'])) {
+    header("location:../cabnew/");
+} else if (!isset($_SESSION['user_name'], $_SESSION['is_admin'])) {
     header("location:../login.php");
 }
 include('navigation.php');
@@ -23,6 +25,13 @@ if (isset($_GET['id'])) {
             $result = $obj->deny_location($db1->conn, $id);
             echo '<script>alert("DENY SUCESSFULL")</script>';
         }
+        if ($_GET['action'] == 'remove') {
+            include('../ride.php');
+            $db1 = new config();
+            $obj = new Ride();
+            $result = $obj->remove_location($db1->conn, $id);
+            echo '<script>alert("REMOVE SUCESSFULL")</script>';
+        }
     }
 }
 
@@ -39,6 +48,20 @@ if (isset($_GET['id'])) {
     <script src="filter.js"></script>
     <script>
     $(document).ready(function() {
+        $(function() {
+            $("#location_name").keypress(function(event) {
+                var ew = event.which;
+                if (ew == 32)
+                    return true;
+                if (48 <= ew && ew <= 57)
+                    return true;
+                if (65 <= ew && ew <= 90)
+                    return true;
+                if (97 <= ew && ew <= 122)
+                    return true;
+                return false;
+            });
+        });
         $("#btn-9").click(function() {
             var loc_name = $("#location_name").val();
             var distance = $("#distance").val();
@@ -55,7 +78,7 @@ if (isset($_GET['id'])) {
                     avail: avail
                 },
                 success: function(msg) {
-                    alert("Your Location IS Added");
+                    alert("Your Location Is Added");
                 }
             });
         });
@@ -125,5 +148,25 @@ if (isset($_GET['id'])) {
 
     </div>
 </body>
+<footer>
+    <div class="container-fluid py-5">
+        <div class="row">
+            <div class=" col-md-4  col-sm-4 col-lg-4  col-xs-4 py-2 text-center"> <i
+                    class="fab fa-facebook-f fa-lg white-text px-2"> </i> <i
+                    class="fab fa-twitter fa-lg white-text px-2 "> </i> <i
+                    class="fab fa-instagram fa-lg white-text px-2"> </i> </div>
+            <div class=" col-md-4  col-sm-4  col-lg-4 col-xs-4 text-center">
+                <h3 class="btn btn-warning">CED <span class="text-danger">CAB</span></h3>
+            </div>
+            <div class="col-md-4 col-sm-4  col-lg-4 col-xs-4 text-center">
+                <div class="row py-2">
+                    <div class="col-md-6 col-sm-6 col-lg-4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</footer>
 
 </html>

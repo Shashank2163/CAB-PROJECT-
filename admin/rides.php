@@ -1,7 +1,9 @@
 <?php
 session_start();
 $username = $_SESSION['user_name'];
-if (!isset($_SESSION['user_name'])) {
+if (isset($_SESSION['is_user'])) {
+    header("location:../cabnew/");
+} else if (!isset($_SESSION['user_name'], $_SESSION['is_admin'])) {
     header("location:../login.php");
 }
 include('../ride.php');
@@ -23,14 +25,14 @@ include('header.php'); ?>
         } else if ($_GET['action'] == 'deny') {
             $obj = new Ride();
             $db = new config();
-            $result =  $obj->deny($db->conn, $ride_id);
+            $result =  $obj->cancel_ride($db->conn, $ride_id);
         }
     }
     ?>
     <select name="sort1" id="ride1" onchange="sortTable1(this.value,myTable)">
         <option value="" selected hidden disabled>SORT BY</option>
         <option value="0">Ride Id</option>
-        <option value="4">Weight</option>
+        <!-- <option value="4">Weight</option> -->
         <option value="5">Ride Fare</option>
     </select>
     <?php
@@ -51,7 +53,7 @@ include('header.php'); ?>
             <th>TOTAL FARE</th>
             <th>BLOCK(0)/UNBLOCK(1)</th>
             <th>ACCEPT</th>
-            <th>DENY</th>
+            <th>CANCEL</th>
             <th>ACTION</th>
         </tr>
         <?php $s = 0;
@@ -68,6 +70,8 @@ include('header.php'); ?>
             <td><?php echo $row['total_fare'] ?></td>
             <td><?php if ($row['status'] == 1) {
                                 echo "SUCCESS";
+                            } else if ($row['status'] == 2) {
+                                echo "CANCEL";
                             } else {
                                 echo "PENDING";
                             } ?></td>
@@ -77,7 +81,7 @@ include('header.php'); ?>
             </td>
             <td>
                 <a href="rides.php?ride_id=<?php echo $row['ride_id']; ?>&action=deny" id="deny"
-                    class="btn-deny">DENY</a>
+                    class="btn-deny">CANCEL</a>
             </td>
             <td><a class="btn-deny" href="rides.php?ride_id=<?php echo $row['ride_id']; ?>&action=remove" id="remove">
                     REMOVE </a>
@@ -86,5 +90,25 @@ include('header.php'); ?>
     </table> <?php  } ?>
 
 </body>
+<footer>
+    <div class="container-fluid py-5">
+        <div class="row">
+            <div class=" col-md-4  col-sm-4 col-lg-4  col-xs-4 py-2 text-center"> <i
+                    class="fab fa-facebook-f fa-lg white-text px-2"> </i> <i
+                    class="fab fa-twitter fa-lg white-text px-2 "> </i> <i
+                    class="fab fa-instagram fa-lg white-text px-2"> </i> </div>
+            <div class=" col-md-4  col-sm-4  col-lg-4 col-xs-4 text-center">
+                <h3 class="btn btn-warning">CED <span class="text-danger">CAB</span></h3>
+            </div>
+            <div class="col-md-4 col-sm-4  col-lg-4 col-xs-4 text-center">
+                <div class="row py-2">
+                    <div class="col-md-6 col-sm-6 col-lg-4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</footer>
 
 </html>

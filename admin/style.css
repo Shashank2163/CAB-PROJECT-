@@ -24,11 +24,6 @@
        text-decoration: none;
    }
    
-   li a:hover,
-   .dropdown:hover .dropbtn {
-       background-color: GREEN;
-   }
-   
    li.dropdown {
        display: inline-block;
    }

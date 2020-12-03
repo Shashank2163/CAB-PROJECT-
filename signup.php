@@ -3,6 +3,8 @@ include 'user.php';
 $message = '';
 if (isset($_POST['submit'])) {
     $username = $_REQUEST['username'];
+    // $username = $username . trim();
+    $username = trim($username);
     $name = $_REQUEST['name'];
     $dateofsignup = date('Y-m-d H:i:s');
     $isblock = 0;
@@ -22,7 +24,18 @@ if (isset($_POST['submit'])) {
     <title>
         Register
     </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="style.css" rel="stylesheet">
+    <script>
+    $(document).ready(function() {
+        $("#mob").bind("keypress", function(e) {
+            var keyCode = e.which ? e.which : e.keyCode
+            if (!(keyCode >= 48 && keyCode <= 57)) {
+                return false;
+            }
+        });
+    });
+    </script>
 </head>
 
 <body>
@@ -43,7 +56,8 @@ if (isset($_POST['submit'])) {
                 <input type="text" placeholder="Enter Name" name="name" required>
 
                 <label for="mobile"><b>Mobile</b></label>
-                <input type="text" placeholder="Enter Username" name="mobile" required>
+                <input type="text" placeholder="Enter Username" id="mob" name="mobile" maxlength="10" minlength="10"
+                    required>
 
                 <label for="password"><b>Password</b></label>
                 <input type="password" placeholder="Enter Password" name="password" required>
@@ -53,6 +67,7 @@ if (isset($_POST['submit'])) {
 
                 <button type="submit" name="submit" value="Submit">SUBMIT</button>
                 <p> <a href="login.php" id="remove">login</a></p>
+                <p> <a href="cabnew/index.php" id="remove">Home</a></p>
             </div>
 </body>
 

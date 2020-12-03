@@ -1,7 +1,10 @@
 <?php
 // $username = $_SESSION['user_name'];
 session_start();
-if (!isset($_SESSION['user_name'])) {
+$username = $_SESSION['user_name'];
+if (isset($_SESSION['is_user'])) {
+    header("location:../cabnew/");
+} else if (!isset($_SESSION['user_name'], $_SESSION['is_admin'])) {
     header("location:../login.php");
 }
 
@@ -106,5 +109,25 @@ if (isset($_GET['user_id'])) {
     </div>
     <div id="main"></div>
 </body>
+<footer>
+    <div class="container-fluid py-5">
+        <div class="row">
+            <div class=" col-md-4  col-sm-4 col-lg-4  col-xs-4 py-2 text-center"> <i
+                    class="fab fa-facebook-f fa-lg white-text px-2"> </i> <i
+                    class="fab fa-twitter fa-lg white-text px-2 "> </i> <i
+                    class="fab fa-instagram fa-lg white-text px-2"> </i> </div>
+            <div class=" col-md-4  col-sm-4  col-lg-4 col-xs-4 text-center">
+                <h3 class="btn btn-warning">CED <span class="text-danger">CAB</span></h3>
+            </div>
+            <div class="col-md-4 col-sm-4  col-lg-4 col-xs-4 text-center">
+                <div class="row py-2">
+                    <div class="col-md-6 col-sm-6 col-lg-4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</footer>
 
 </html>

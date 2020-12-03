@@ -15,12 +15,14 @@ class User
                     if ($row['is_admin'] == 2) {
                         $_SESSION['user_name'] = $row["user_name"];
                         $_SESSION['password'] = $row["password"];
+                        $_SESSION['is_admin'] = 2;
                         header('location:admin/');
                     } else if ($row['isblock'] == 1) {
                         $_SESSION['user_name'] = $row["user_name"];
                         $_SESSION['password'] = $row["password"];
                         $_SESSION['status'] = $row["isblock"];
                         $_SESSION['user_id'] = $row["user_id"];
+                        $_SESSION['is_user'] = 1;
                         header('location:cabnew/index.php');
                         $x = true;
                     }
@@ -66,9 +68,25 @@ class User
     public function update($name, $dateofsignup, $isblock, $isadmin, $password, $mobile, $conn)
     {
         $user_name = $_SESSION['user_name'];
-        $sql = "UPDATE `tbl_user` SET `name`='$name',`dateofsignup`='$dateofsignup',`mobile`='$mobile',`isblock`=$isblock,`password`='$password',`is_admin`=$isadmin WHERE `user_name`='$user_name'";
+        $sql = "UPDATE `tbl_user` SET `name`='$name',`dateofsignup`='$dateofsignup',`mobile`='$mobile',`isblock`=$isblock,`is_admin`=$isadmin WHERE `user_name`='$user_name'";
         $result = mysqli_query($conn, $sql);
         return "Your Profile Successfully Updated!!!";
+    }
+    public function update_password($password, $repassword, $conn)
+    {
+        $user_name = $_SESSION['user_name'];
+        $sql = "SELECT * from `tbl_user` where `password`='$password'";
+        $result = $conn->query($sql);
+
+        if (mysqli_num_rows($result) > 0) {
+            $sql = "UPDATE `tbl_user` SET `password`='$repassword'  where `user_name`='$user_name' AND `password`='$password'";
+            if ($conn->query($sql) === true) {
+                session_destroy();
+                header('location:../login.php');
+            }
+        } else {
+            echo '<script>alert("Your Old Password is Wrong")</script>';
+        }
     }
     public function show($conn)
     {

@@ -1,7 +1,8 @@
 <?php session_start();
-if (!isset($_SESSION['user_name'])) {
+
+if (!isset($_SESSION['user_name'], $_SESSION['is_user'])) {
     session_unset();
-    unset($_SESSION['start'], $_SESSION['end'], $_SESSION['weight'], $_SESSION['cab']);
+    unset($_SESSION['start'], $_SESSION['end'], $_SESSION['weight'], $_SESSION['cab'], $_SESSION['fare']);
     session_destroy();
 }
 ?>
@@ -38,6 +39,7 @@ if (!isset($_SESSION['user_name'])) {
                 <ul class="navbar-nav ml-auto mr-5">
                     <?php if (isset($_SESSION['user_name'])) {
                         echo '<a class="btn btn-warning mx-2 " href="success.php?&action=pastride">PAST RIDE</a>
+                        <li class="nav-item active mx-2"> <a class="btn btn-warning" href="password.php">RESET PASSWORD</a></li>
                     <a class="btn btn-warning" href="../admin/logout.php">LOG OUT</a>';
                     }
                     ?>
@@ -53,7 +55,6 @@ if (!isset($_SESSION['user_name'])) {
                                 width="20">';
                         echo "<figcaption>" . $_SESSION['user_name'] . "</figcaption>";
                     } else {
-                        // echo "<figcaption>Profile</figcaption>";
                     } ?>
                     </a></h6>
                 </form>
@@ -71,7 +72,7 @@ if (!isset($_SESSION['user_name'])) {
                     <p>
                         <button type="button" class="btn btn-warning">City Taxi</button>
                     </p>
-                    <p class="bg-warning text-dark">Your Everday Travel Partner</p>
+                    <p class="bg-warning text-dark">Your Everyday Travel Partner</p>
                     <p class="text-success"> AC Cabs For Point Travel </p>
                     <select class="form-control " id="current">
                         <label class="col-sm-3">PICK UP</label>
@@ -171,7 +172,6 @@ if (!isset($_SESSION['user_name'])) {
                 <div class="col-md-4 col-sm-4  col-lg-4 col-xs-4 text-center">
                     <div class="row py-2">
                         <div class="col-md-6 col-sm-6 col-lg-4">
-                            <!-- <a class="btn btn-warning" href="index.php">Log Out</a> -->
                         </div>
                     </div>
                 </div>
@@ -179,17 +179,9 @@ if (!isset($_SESSION['user_name'])) {
         </div>
         </div>
     </footer>
-    <!-- Optional JavaScript; choose one of the two! -->
-    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
     </script>
-    <!-- Option 2: jQuery, Popper.js, and Bootstrap JS
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
-    -->
 </body>
 
 </html>

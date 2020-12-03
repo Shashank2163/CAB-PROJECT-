@@ -1,7 +1,9 @@
 <?php
 session_start();
 $username = $_SESSION['user_name'];
-if (!isset($_SESSION['user_name'])) {
+if (isset($_SESSION['is_user'])) {
+    header("location:../cabnew/");
+} else if (!isset($_SESSION['user_name'], $_SESSION['is_admin'])) {
     header("location:../login.php");
 }
 ?>
@@ -19,7 +21,7 @@ if (!isset($_SESSION['user_name'])) {
 </head>
 
 <body>
-    <h1 id="admin-panel">ADMIN PANEL</h1>
+    <h1 id="admin-panel" class="px-2">ADMIN PANEL</h1>
     <nav class="navbar navbar-expand-lg bg-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
             aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">

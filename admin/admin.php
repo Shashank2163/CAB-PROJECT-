@@ -1,7 +1,9 @@
 <?php
 session_start();
 $username = $_SESSION['user_name'];
-if (!isset($_SESSION['user_name'])) {
+if (isset($_SESSION['is_user'])) {
+    header("location:../cabnew/");
+} else if (!isset($_SESSION['user_name'], $_SESSION['is_admin'])) {
     header("location:../login.php");
 }
 include('../src/config.php');

@@ -189,9 +189,12 @@ if (isset($_POST["from_date"], $_POST["to_date"], $_SESSION['user_name'])) {
         <th>TO</th>
         <th>DISTANCE</th>
         <th>WEIGHT</th>
+        <th>STATUS</th>
         <th>FARE</th>
     </tr>';
+    $total1 = 0;
     if (mysqli_num_rows($result) > 0) {
+
         while ($row = mysqli_fetch_assoc($result)) {
             echo '<tr>
         <td>';
@@ -211,16 +214,29 @@ if (isset($_POST["from_date"], $_POST["to_date"], $_SESSION['user_name'])) {
             echo '</td>
         <td>';
             echo $row['luggage'];
-            echo '</td>
-        <td>';
+            echo '</td>';
+            echo '<td>';
+            if ($row['status'] == 0) {
+                echo "PENDING";
+            } else if ($row['status'] == 2) {
+                echo "CANCEL";
+            } else {
+                echo "SUCCESS";
+                $total = (int)$row['total_fare'];
+                $total1 = $total1 + $total;
+            }
+            echo '</td>';
+            echo '<td>';
             echo $row['total_fare'];
             '</td>
     </tr>';
         }
+        echo '<tr><td colspan="7">TOTAL SPEND</td>';
+        echo '<td>';
+        echo $total1;
+        echo '</td></tr>';
     }
-    echo '<tr><td colspan="6"></td><td>';
 
-    echo '</td></tr>';
 
     echo '<table>';
 }
@@ -237,6 +253,10 @@ if (isset($_POST['x'])) {
         $db = new Config();
         $obj1 = new Ride();
         $result = $obj1->success($db->conn);
+    } else  if ($_POST['x'] == 3) {
+        $db = new Config();
+        $obj1 = new Ride();
+        $result = $obj1->cancelride1($db->conn);
     } else  if ($_POST['x'] == 2) {
         $db = new Config();
         $obj1 = new Ride();
@@ -245,14 +265,14 @@ if (isset($_POST['x'])) {
 
     echo '<table id="myTable">
     <tr>
-        <th onclick="sortTable1(0)">USER ID &#x2193;</th>
+        <th onclick="sortTable1(0)">USER ID</th>
         <th onclick="sortTable(1)">RIDE DATE/TIME  &#x2193;</th>
         <th onclick="sortTable(2)">FROM &#x2193;</th>
         <th onclick="sortTable(3)">TO &#x2193;</th>
         <th onclick="sortTable(4)">STATUS &#x2193;</th>
         <th onclick="sortTable(5)">DISTANCE &#x2193;</th>
-        <th onclick="sortTable1(6)">WEIGHT &#x2193;</th>
-        <th onclick="sortTable1(7)">FARE &#x2193;</th>
+        <th>WEIGHT</th>
+        <th onclick="sortTable1(7)">FARE</th>
         <th>DETAILS</th>
     </tr>';
     $total1 = 0;
@@ -275,6 +295,8 @@ if (isset($_POST['x'])) {
         <td>';
             if ($row['status'] == 0) {
                 echo "PENDING";
+            } else if ($row['status'] == 2) {
+                echo "CANCEL";
             } else {
                 echo "SUCCESS";
             }
@@ -294,10 +316,11 @@ if (isset($_POST['x'])) {
             echo '<td>';
             if ($row['status'] == 0) {
                 echo "PENDING";
+            } else if ($row['status'] == 2) {
+                echo "CANCEL";
             } else {
                 echo '<a href="invoice.php?user_id=' . $row["ride_id"] . '&action=invoice" id="btn-3">INVOICE</a>';
             }
-            // echo '<a href="invoice.php?user_id=' . $row["ride_id"] . '&action=invoice" id="btn-3">Details</a>';
             echo '</td>';
             echo  '</tr>';
         }
@@ -330,10 +353,10 @@ if (isset($_POST['y'])) {
     }
     echo '<table id="myTable"><thead>
     <tr>
-        <th onclick="sortTable1(0)">USER ID &#x2193;</th>
+        <th onclick="sortTable1(0)">USER ID</th>
         <th >USER NAME</th>
         <th>NAME</th>
-        <th onclick="sortTable1(1)">DATE/TIME &#x2193;</th>
+        <th onclick="sortTable1(1)">DATE/TIME</th>
         <th onclick="sortTable(2)">STATUS &#x2193;</th>
         <th onclick="sortTable(3)">MOBILE &#x2193;</th>
         <th>ALLOW</th>
@@ -414,7 +437,8 @@ if (isset($_POST['dat'])) {
         <th onclick="sortTable1(1)">Distance &#x2193;</th>
         <th>STATUS</th>
         <th>ACCEPT</th>
-        <th>DENY</th>      
+        <th>DENY</th>  
+        <th>REMOVE</th>      
     </tr>';
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
@@ -434,12 +458,15 @@ if (isset($_POST['dat'])) {
                 } else {
                     echo "ALLOW";
                 }
-                echo '</td>
-        <td>';
+                echo '</td>';
+                echo '<td>';
                 echo '<a href="location.php?id=' . $row["id"] . '&action=accept" id="btn-3">ACCEPT</a>';
-                echo '</td>
-        <td>';
+                echo '</td>';
+                echo '<td>';
                 echo '<a href="location.php?id=' . $row["id"] . '&action=deny" id="btn-4">DENY</a>';
+                echo '</td>';
+                echo '<td>';
+                echo '<a href="location.php?id=' . $row["id"] . '&action=remove" id="btn-4">REMOVE</a>';
                 echo '</td>';
                 echo '</tr>';
             }

@@ -1,7 +1,7 @@
 <?php
 session_start();
 $username = $_SESSION['user_name'];
-if (!isset($_SESSION['user_name'])) {
+if (!isset($_SESSION['user_name'], $_SESSION['is_user'])) {
     header("location:../login.php");
 } else if (isset($_GET['id'])) {
     if ($_GET['id'] == 1) {

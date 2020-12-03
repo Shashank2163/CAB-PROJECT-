@@ -9,19 +9,13 @@ $obj1 = new User();
 $db1 = new config();
 $result1 = $obj1->show($db1->conn);
 if (isset($_POST['submit'])) {
-    $name = $_REQUEST['name'];
-    $dateofsignup = date('Y-m-d H:i:s');
-    $isblock = 1;
-    $isadmin = 0;
-    // $password = $_REQUEST['password'];
-    // $password = md5($password);
-    // $repassword = $_REQUEST['repassword'];
-    $mobile = $_REQUEST['mobile'];
+    $password = $_REQUEST['password'];
+    $password = md5($password);
+    $repassword = $_REQUEST['repassword'];
+    $repassword = md5($repassword);
     $db = new config();
     $obj = new User();
-    $result = $obj->update($name, $dateofsignup, $isblock, $isadmin, $password, $mobile, $db->conn);
-    echo '<script>alert("Your Profile is Updated")</script>';
-    header('location:../login.php');
+    $result = $obj->update_password($password, $repassword, $db->conn);
 }
 ?>
 <!DOCTYPE html>
@@ -44,14 +38,10 @@ if (isset($_POST['submit'])) {
                 <img src="../avataar.png" alt="Avatar" class="avatar">
             </div>
             <div class="container">
-                <label for="username"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="username"
-                    value="<?php echo $result1['user_name']; ?>" disabled>
-                <label for="name"><b>Name</b></label>
-                <input type="text" placeholder="Enter Name" name="name" value="<?php echo $result1['name']; ?>">
-                <label for="mobile"><b>Mobile</b></label>
-                <input type="text" placeholder="Enter Mobile No" name="mobile" value="<?php echo $result1['mobile']; ?>"
-                    required>
+                <label for="text"><b> OLD Password</b></label>
+                <input type="password" placeholder="Enter Old-Password" name="password" value="" required>
+                <label for="repassword"><b>NEW -Password</b></label>
+                <input type="password" placeholder="Enter New-Password" name="repassword" value="" required>
                 <button type="submit" name="submit" value="Submit">UPDATE</button>
                 <p> <a href="../login.php" id="remove">login</a></p>
                 <p> <?php if ($_SESSION['user_name'] == 'admin') echo ' <a href="../admin/admin.php" id="remove">Home</a></p>';
