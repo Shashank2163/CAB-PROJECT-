@@ -10,18 +10,13 @@ $db1 = new config();
 $result1 = $obj1->show($db1->conn);
 if (isset($_POST['submit'])) {
     $name = $_REQUEST['name'];
-    $dateofsignup = date('Y-m-d H:i:s');
-    $isblock = 1;
-    $isadmin = 0;
-    // $password = $_REQUEST['password'];
-    // $password = md5($password);
-    // $repassword = $_REQUEST['repassword'];
+    $username = $_SESSION['user_name'];
     $mobile = $_REQUEST['mobile'];
     $db = new config();
     $obj = new User();
-    $result = $obj->update($name, $dateofsignup, $isblock, $isadmin, $password, $mobile, $db->conn);
-    echo '<script>alert("Your Profile is Updated")</script>';
-    header('location:../login.php');
+    $result = $obj->update($name, $username, $mobile, $db->conn);
+    echo "<script>alert('SUCCESSFULLY UPDATED');window.location.href='user1.php';</script>";
+    // header('location:../login.php');
 }
 ?>
 <!DOCTYPE html>
@@ -29,12 +24,91 @@ if (isset($_POST['submit'])) {
 
 <head>
     <title>
-        Register
+        CED CAB
     </title>
     <link href="../style.css" rel="stylesheet">
+    <style>
+    #logo-btn {
+        background-color: #e8be3f;
+        width: 115px;
+        height: 42px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    #logo-span {
+        color: red;
+        padding-left: 7px;
+    }
+
+    body {
+        margin: 0px;
+        padding: 0px;
+
+    }
+
+    #logo-p {
+        margin: 6px;
+    }
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+    }
+
+    li {
+        float: left;
+    }
+
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        /* padding: 14px 16px; */
+        padding: 26px 16px;
+        text-decoration: none;
+    }
+
+    li a:hover {
+        background-color: green;
+    }
+
+    footer {
+        padding: 15px;
+        background-color: black;
+        color: white;
+        text-align: center;
+    }
+
+    #footer-text {
+        color: white;
+    }
+
+    .nav-4 {
+        float: right;
+        height: 10px;
+    }
+    </style>
 </head>
 
 <body>
+
+    <ul>
+        <li>
+            <p id="logo-p"><button id="logo-btn">CED<span id="logo-span">CAB</span></button></p>
+        </li>
+        <div class="nav-4">
+            <li>
+                <?php if ($_SESSION['user_name'] == 'admin') echo ' <a href="../admin/admin.php" id="remove">Home</a></p>';
+                else echo '<a href="user1.php" id="remove">Home</a></p>'; ?>
+            </li>
+        </div>
+
+    </ul>
     <div class="container1">
 
         <h2>UPDATE YOUR PROFILE</h2>
@@ -53,11 +127,12 @@ if (isset($_POST['submit'])) {
                 <input type="text" placeholder="Enter Mobile No" name="mobile" value="<?php echo $result1['mobile']; ?>"
                     required>
                 <button type="submit" name="submit" value="Submit">UPDATE</button>
-                <p> <a href="../login.php" id="remove">login</a></p>
-                <p> <?php if ($_SESSION['user_name'] == 'admin') echo ' <a href="../admin/admin.php" id="remove">Home</a></p>';
-                    else echo '<a href="index.php" id="remove">Home</a></p>'; ?>
         </form>
     </div>
+    </div>
 </body>
+<footer>
+    <p id="footer-text">Copyright@<span class="read-more">cedcoss</span>.com</p>
+</footer>
 
 </html>

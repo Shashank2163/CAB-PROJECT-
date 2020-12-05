@@ -4,6 +4,7 @@ function getval(sel) {
     var a = 'CedMicro';
 
     if (a == sel.value) {
+        $("#weight").val(0);
         $('#weight').prop('disabled', true);
         $("#luggage").show();
     } else {
@@ -14,6 +15,9 @@ function getval(sel) {
 $(document).ready(function() {
     $("#calculate").show();
     $("#book").hide();
+    $('#weight').on("copy paste", function(e) {
+        e.preventDefault();
+    });
     $("#weight").bind("keypress", function(e) {
         var keyCode = e.which ? e.which : e.keyCode
         if (!(keyCode >= 48 && keyCode <= 57)) {
@@ -51,7 +55,7 @@ $(document).ready(function() {
                 } else {
                     $("#book").show();
                     $("#calculate").show();
-                    $("#message").html("Your Fare is :" + msg);
+                    $("#message").html("Your Fare is :₹" + msg);
                 }
             }
         });

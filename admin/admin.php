@@ -48,6 +48,13 @@ include('../src/config.php');
         $result = mysqli_query($conn, $sql); ?>
     <table id="myTable">
         <tr>
+            <th colspan="9">
+                <center>
+                    <h3>MANAGE USER</h3>
+                </center>
+            </th>
+        </tr>
+        <tr>
             <th>USER ID</th>
             <th>USERNAME</th>
             <th>NAME</th>
@@ -84,5 +91,8 @@ include('../src/config.php');
     </table> <?php
                 } ?>
 </body>
+<footer>
+    <p id="footer-text">Copyright@<span class="read-more">cedcoss</span>.com</p>
+</footer>
 
 </html>

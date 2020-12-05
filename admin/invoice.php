@@ -3,9 +3,27 @@
 
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>CED CAB</title>
 
     <style>
+    #logo-btn {
+        background-color: rgb(255 208 0);
+        width: 100px;
+        height: 38px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    #logo-span {
+        color: red;
+        padding-left: 7px;
+    }
+
+    #logo-p {
+        margin: 6px;
+    }
+
     .invoice-box {
         max-width: 800px;
         margin: auto;
@@ -16,6 +34,7 @@
         line-height: 24px;
         font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
         color: #555;
+        margin-bottom: 200px;
     }
 
     .invoice-box table {
@@ -97,10 +116,26 @@
     .rtl table tr td:nth-child(2) {
         text-align: left;
     }
+
+    footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: black;
+        color: white;
+        text-align: center;
+        padding: 10px;
+    }
+
+    #footer-text {
+        color: white;
+    }
     </style>
 </head>
 
 <body>
+    <p id="logo-p"><button id="logo-btn">CED<span id="logo-span">CAB</span></button></p>
     <div class="invoice-box">
         <?php
         $rideid;
@@ -109,11 +144,11 @@
         if (isset($_GET['user_id'])) {
             $user_id = $_GET['user_id'];
             $sql = "SELECT * FROM tbl_ride where `ride_id`=$user_id";
-            echo '<a class="btn btn-warning" href="index.php">Home</a>';
+            echo '<a href="index.php">Home</a>';
         } else {
             if (isset($_SESSION['user_name'])) {
                 $user_id = $_SESSION['user_id'];
-                echo '<a class="btn btn-warning" href="../cabnew/index.php">Home</a>';
+                echo '<a class="btn btn-warning" href="../cabnew/user1.php">Home</a>';
                 $sql = "SELECT * FROM tbl_ride where `customer_user_id`=$user_id";
             }
         }
@@ -136,7 +171,7 @@
                     <table>
                         <tr>
                             <td class="title">
-                                <h3>CED CAB</h3>
+                                <p id="logo-p"><button id="logo-btn">CED<span id="logo-span">CAB</span></button></p>
                             </td>
                             <td>
                                 Invoice #: <?php echo $rideid; ?><br>
@@ -192,9 +227,12 @@
                 <td> &#x20B9 <?php echo $total_fare; ?></td>
             </tr>
         </table>
-        <a class="btn" href="../admin/logout.php">LOG OUT</a></br></br>
+        <!-- <a class="btn" href="../admin/logout.php">LOG OUT</a></br></br> -->
         <button onclick="window.print()">Print this page</button>
     </div>
 </body>
+<footer>
+    <p id="footer-text">Copyright@<span class="read-more">cedcoss</span>.com</p>
+</footer>
 
 </html>

@@ -33,10 +33,24 @@ if (isset($_GET['user_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>CED CAB</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <script src="filter.js"></script>
+    <style>
+    footer {
+        padding: 15px;
+        background-color: black;
+        color: white;
+        text-align: center;
+    }
+
+    #footer-text {
+        color: white;
+    }
+    </style>
     <script>
     $(document).ready(function() {
         $("#btn").click(function() {
@@ -103,31 +117,14 @@ if (isset($_GET['user_id'])) {
         <select name="sort1" onchange="sortTable1(this.value,myTable)">
             <option value="" selected hidden disabled>SORT BY</option>
             <option value="0">User Id</option>
-            <option value="5">MOBILE</option>
+            <option value="4">MOBILE</option>
         </select>
         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
     </div>
     <div id="main"></div>
 </body>
 <footer>
-    <div class="container-fluid py-5">
-        <div class="row">
-            <div class=" col-md-4  col-sm-4 col-lg-4  col-xs-4 py-2 text-center"> <i
-                    class="fab fa-facebook-f fa-lg white-text px-2"> </i> <i
-                    class="fab fa-twitter fa-lg white-text px-2 "> </i> <i
-                    class="fab fa-instagram fa-lg white-text px-2"> </i> </div>
-            <div class=" col-md-4  col-sm-4  col-lg-4 col-xs-4 text-center">
-                <h3 class="btn btn-warning">CED <span class="text-danger">CAB</span></h3>
-            </div>
-            <div class="col-md-4 col-sm-4  col-lg-4 col-xs-4 text-center">
-                <div class="row py-2">
-                    <div class="col-md-6 col-sm-6 col-lg-4">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
+    <p id="footer-text">Copyright@<span class="read-more">cedcoss</span>.com</p>
 </footer>
 
 </html>

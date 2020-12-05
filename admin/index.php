@@ -17,18 +17,52 @@ if (isset($_SESSION['is_user'])) {
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <title></title>
+    <title>CED CAB</title>
+    <style>
+    footer {
+        padding: 15px;
+        background-color: black;
+        color: white;
+        text-align: center;
+    }
+
+    #footer-text {
+        color: white;
+    }
+
+    #logo-btn {
+        background-color: rgb(255 208 0);
+        width: 100px;
+        height: 38px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        margin-top: -6px;
+    }
+
+    #logo-span {
+        color: red;
+        padding-left: 7px;
+    }
+
+    #logo-p {
+        margin: 6px;
+    }
+    </style>
+    <!-- <link href="style.css" rel="stylesheet"> -->
 </head>
 
 <body>
-    <h1 id="admin-panel" class="px-2">ADMIN PANEL</h1>
-    <nav class="navbar navbar-expand-lg bg-dark">
+    <?php include('navigation.php'); ?>
+    <!-- <nav class="navbar navbar-expand-lg bg-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
             aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <p id="logo-p"><button id="logo-btn">CED<span id="logo-span">CAB</span></button></p> -->
+    <!-- <h3 class="btn btn-warning">CED <span class="text-danger">CAB</span></h3>
                 <li class="nav-item">
                     <a class="nav-link text-light" href="admin.php">MANAGE USER</a>
                 </li>
@@ -51,8 +85,8 @@ if (isset($_SESSION['is_user'])) {
                     <a class="nav-link text-light" href="logout.php">LOG OUT</a>
                 </li>
             </ul>
-        </div>
-    </nav>
+        </div> -->
+    <!-- </nav> -->
     <div class="container-fluid  p-5">
         <div class="row">
             <div class="col-sm-6 col-lg-4">
@@ -202,5 +236,8 @@ if (isset($_SESSION['is_user'])) {
     </div>
 
 </body>
+<footer>
+    <p id="footer-text">Copyright@<span class="read-more">cedcoss</span>.com</p>
+</footer>
 
 </html>

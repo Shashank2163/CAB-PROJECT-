@@ -25,21 +25,51 @@ if (!isset($_SESSION['user_name'], $_SESSION['is_user'])) {
     <script src="cab.js">
     </script>
     <link href="cab.css" rel="stylesheet">
+    <style>
+    footer {
+        padding: 15px;
+        background-color: black;
+        color: white;
+        text-align: center;
+    }
+
+    #footer-text {
+        color: white;
+    }
+
+    #logo-btn {
+        background-color: rgb(255 208 0);
+        width: 100px;
+        height: 38px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    #logo-span {
+        color: red;
+        padding-left: 7px;
+    }
+
+    #logo-p {
+        margin: 6px;
+    }
+    </style>
 </head>
 <script src="https://kit.fontawesome.com/4b2ee26aaa.js" crossorigin="anonymous"></script>
 
 <body>
-    <div class="container">
-        <nav class="navbar navbar-expand-sm navbar-light ">
-            <h3 class="btn btn-warning">CED <span class="text-danger">CAB</span></h3>
+    <div class="container-fluid pr-0 pl-0  ">
+        <nav class="navbar navbar-expand-sm navbar-light nav-1">
+            <p id="logo-p"><button id="logo-btn">CED<span id="logo-span">CAB</span></button></p>
+            <!-- <h3 class="btn btn-warning">CED <span class="text-danger">CAB</span></h3> -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span
                     class="navbar-toggler-icon"></span> </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto mr-5">
                     <?php if (isset($_SESSION['user_name'])) {
-                        echo '<a class="btn btn-warning mx-2 " href="success.php?&action=pastride">PAST RIDE</a>
-                        <li class="nav-item active mx-2"> <a class="btn btn-warning" href="password.php">RESET PASSWORD</a></li>
+                        echo '<a class="btn btn-warning mx-2 " href="user1.php">DASHBOARD</a>
                     <a class="btn btn-warning" href="../admin/logout.php">LOG OUT</a>';
                     }
                     ?>
@@ -49,13 +79,12 @@ if (!isset($_SESSION['user_name'], $_SESSION['is_user'])) {
                     } ?>
                 </ul>
                 <form class=" form-inline my-2 my-lg-0">
-
-                    <?php if (isset($_SESSION['user_name'])) {
-                        echo '<h6 class="btn btn-warning circle"><a href="profile.php"><img src="profile.png" alt="" height="20"
-                                width="20">';
-                        echo "<figcaption>" . $_SESSION['user_name'] . "</figcaption>";
-                    } else {
-                    } ?>
+                    <!-- // if (isset($_SESSION['user_name'])) {
+                    // echo '<h6 class="btn btn-warning circle"><a href="profile.php"><img src="profile.png" alt=""
+                                height="20" // width="20">';
+                            // echo "<figcaption>" . $_SESSION['user_name'] . "</figcaption>";
+                            // } else {
+                            // } -->
                     </a></h6>
                 </form>
             </div>
@@ -76,18 +105,8 @@ if (!isset($_SESSION['user_name'], $_SESSION['is_user'])) {
                     <p class="text-success"> AC Cabs For Point Travel </p>
                     <select class="form-control " id="current">
                         <label class="col-sm-3">PICK UP</label>
-                        <option value="<?php if (isset($_SESSION['user_name'], $_SESSION['start'])) {
-                                            echo $_SESSION['start'];
-                                        } else {
-                                            echo "Your Pickup Location";
-                                            // echo " selected disabled";
-                                        } ?>" <?php if (!isset($_SESSION['user_name'])) {
-                                                    echo " selected disabled";
-                                                } ?>><?php if (isset($_SESSION['start'], $_SESSION['start'])) {
-                                                            echo $_SESSION['start'];
-                                                        } else {
-                                                            echo "Your Pickup Location";
-                                                        } ?></option>
+                        <option value="" selected disabled hidden>Your Pickup Location</option>
+
                         <?php
                         include('../ride.php');
                         $db = new config();
@@ -100,17 +119,7 @@ if (!isset($_SESSION['user_name'], $_SESSION['is_user'])) {
                         <?php } ?>
                     </select>
                     <select class="form-control " id="drop">
-                        <option value="<?php if (isset($_SESSION['user_name'], $_SESSION['end'])) {
-                                            echo $_SESSION['end'];
-                                        } else {
-                                            echo "Your Drop Location";
-                                        } ?>" <?php if (!isset($_SESSION['user_name'])) {
-                                                    echo "selected disabled";
-                                                } ?>><?php if (isset($_SESSION['end'], $_SESSION['end'])) {
-                                                            echo $_SESSION['end'];
-                                                        } else {
-                                                            echo "Your Drop location";
-                                                        } ?></option>
+                        <option value="" selected disabled hidden>Your Drop Location</option>
                         <?php
                         $db1 = new config();
                         $obj1 = new Ride();
@@ -142,10 +151,10 @@ if (!isset($_SESSION['user_name'], $_SESSION['is_user'])) {
                         if ($_SESSION['weight'] > 0) {
                             echo  '<input type="text" id="weight" class="form-control mb-4" value="' . $_SESSION['weight'] . '">';
                         } else {
-                            echo ' <input type="text" id="weight" class="form-control mb-4" placeholder="Enter Weight in Kg">';
+                            echo ' <input type="text" id="weight"  class="form-control mb-4" placeholder="Enter Weight in Kg">';
                         }
                     } else {
-                        echo ' <input type="text" id="weight" class="form-control mb-4" placeholder="Enter Weight in Kg">';
+                        echo ' <input type="text" id="weight"  class="form-control mb-4" placeholder="Enter Weight in Kg">';
                     }
                     ?>
                     <!-- <input type="text" id="weight" class="form-control mb-4" placeholder="Enter Weight in Kg"> -->
@@ -159,7 +168,7 @@ if (!isset($_SESSION['user_name'], $_SESSION['is_user'])) {
             </div>
         </div>
     </div>
-    <footer>
+    <!-- <footer>
         <div class="container-fluid py-5">
             <div class="row">
                 <div class=" col-md-4  col-sm-4 col-lg-4  col-xs-4 py-2 text-center"> <i
@@ -178,6 +187,9 @@ if (!isset($_SESSION['user_name'], $_SESSION['is_user'])) {
             </div>
         </div>
         </div>
+    </footer> -->
+    <footer>
+        <p id="footer-text">Copyright@<span class="read-more">cedcoss</span>.com</p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">

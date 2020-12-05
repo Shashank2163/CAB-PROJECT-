@@ -10,15 +10,6 @@ if (isset($_POST['pickup']) || isset($_POST['$destination']) || isset($_POST['$c
     $pick1 = 0;
     $pick2 = 0;
     $rupee = 0;
-    // $fare = array(
-    //     "Charbagh" => 0,
-    //     "Indira Nagar" => 10,
-    //     "BBD" => 30,
-    //     "Barabanki" => 60,
-    //     "Faizabad" => 100,
-    //     "Basti" => 150,
-    //     "Gorakhpur" => 210
-    // );
     include('../ride.php');
     $fare = [];
     $db = new config();
@@ -187,10 +178,10 @@ if (isset($_POST["from_date"], $_POST["to_date"], $_SESSION['user_name'])) {
         <th>RIDE DATE/TIME </th>
         <th>FROM</th>
         <th>TO</th>
-        <th>DISTANCE</th>
-        <th>WEIGHT</th>
+        <th>DISTANCE(K.M.)</th>
+        <th>WEIGHT(K.G.)</th>
         <th>STATUS</th>
-        <th>FARE</th>
+        <th>FARE (₹)</th>
     </tr>';
     $total1 = 0;
     if (mysqli_num_rows($result) > 0) {
@@ -217,7 +208,7 @@ if (isset($_POST["from_date"], $_POST["to_date"], $_SESSION['user_name'])) {
             echo '</td>';
             echo '<td>';
             if ($row['status'] == 0) {
-                echo "PENDING";
+                echo "<span class='blink-two'>PENDING</span>";
             } else if ($row['status'] == 2) {
                 echo "CANCEL";
             } else {
@@ -233,7 +224,7 @@ if (isset($_POST["from_date"], $_POST["to_date"], $_SESSION['user_name'])) {
         }
         echo '<tr><td colspan="7">TOTAL SPEND</td>';
         echo '<td>';
-        echo $total1;
+        echo "₹" . $total1;
         echo '</td></tr>';
     }
 
@@ -270,9 +261,9 @@ if (isset($_POST['x'])) {
         <th onclick="sortTable(2)">FROM &#x2193;</th>
         <th onclick="sortTable(3)">TO &#x2193;</th>
         <th onclick="sortTable(4)">STATUS &#x2193;</th>
-        <th onclick="sortTable(5)">DISTANCE &#x2193;</th>
-        <th>WEIGHT</th>
-        <th onclick="sortTable1(7)">FARE</th>
+        <th onclick="sortTable(5)">DISTANCE(K.M.) &#x2193;</th>
+        <th>WEIGHT(K.G.)</th>
+        <th onclick="sortTable1(7)">FARE (₹)</th>
         <th>DETAILS</th>
     </tr>';
     $total1 = 0;
@@ -294,7 +285,7 @@ if (isset($_POST['x'])) {
             echo '</td>
         <td>';
             if ($row['status'] == 0) {
-                echo "PENDING";
+                echo "<span class='blink-two'>PENDING</span>";
             } else if ($row['status'] == 2) {
                 echo "CANCEL";
             } else {
@@ -315,7 +306,7 @@ if (isset($_POST['x'])) {
             echo '</td>';
             echo '<td>';
             if ($row['status'] == 0) {
-                echo "PENDING";
+                echo "<span class='blink-two'>PENDING</span>";
             } else if ($row['status'] == 2) {
                 echo "CANCEL";
             } else {
@@ -326,7 +317,7 @@ if (isset($_POST['x'])) {
         }
     }
     if ($_POST['x'] == 1) {
-        echo '<tr><td colspan="8">TOTAL EARNING </td><td>' . $total1 . '</td></tr>';
+        echo '<tr><td colspan="8">TOTAL EARNING </td><td>₹' . $total1 . '</td></tr>';
     }
     echo '</td></tr>';
 
@@ -383,7 +374,7 @@ if (isset($_POST['y'])) {
             echo '</td>
         <td>';
             if ($row['isblock'] == 0) {
-                echo "PENDING";
+                echo "<span class='blink-two'>PENDING</span>";
             } else {
                 echo "APPROVED";
             }
@@ -431,10 +422,17 @@ if (isset($_POST['dat'])) {
         $obj = new Ride();
         $result = $obj->alllocation($db1->conn);
         echo '<table id="myTable">
+        <tr>
+        <th colspan="9">
+            <center>
+                <h3>ALL LOCATION LIST</h3>
+            </center>
+        </th>
+    </tr>
     <tr>
         <th onclick="sortTable1(0)">ID &#x2193;</th>
         <th>Name</th>
-        <th onclick="sortTable1(1)">Distance &#x2193;</th>
+        <th onclick="sortTable1(1)">Distance (K.M.)&#x2193;</th>
         <th>STATUS</th>
         <th>ACCEPT</th>
         <th>DENY</th>  
@@ -490,9 +488,9 @@ if (isset($_POST["fro_date"], $_POST["t_date"])) {
         <th>RIDE DATE/TIME </th>
         <th>FROM</th>
         <th>TO</th>
-        <th>DISTANCE</th>
-        <th>WEIGHT</th>
-        <th>FARE</th>
+        <th>DISTANCE(K.M.)</th>
+        <th>WEIGHT(K.G.)</th>
+        <th>FARE(₹)</th>
     </tr>';
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {

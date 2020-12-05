@@ -23,7 +23,11 @@ class User
                         $_SESSION['status'] = $row["isblock"];
                         $_SESSION['user_id'] = $row["user_id"];
                         $_SESSION['is_user'] = 1;
-                        header('location:cabnew/index.php');
+                        if (isset($_SESSION['fare'])) {
+                            header('location:cabnew/success.php?id=1');
+                        } else {
+                            header('location:cabnew/index.php');
+                        }
                         $x = true;
                     }
                 }
@@ -52,25 +56,27 @@ class User
             echo "<script>alert('Username already Exist');</script>";
         }
         if ($password != $repassword) {
-            echo "*PASSWORD IS NOT MATCHED";
+            echo '<script>alert("PASSWORD IS NOT MATCHED");</script>';
         } else if ($x) {
             $password = md5($password);
             $sql = "INSERT INTO `tbl_user`( `user_name`, `name`, `dateofsignup`, `mobile`, `isblock`, `password`, `is_admin`) VALUES ('$username','$name','$dateofsignup','$mobile',$isblock,'$password',$isadmin)";
             if ($conn->query($sql) === true) {
-                echo "SUCESSFULL REGISTER";
+                echo "<script>alert('SUCCESSFULLY REGISTERED ');window.location.href='login.php';</script>";
             } else {
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }
         } else {
-            echo "HI! SOMETHING  WENT WRONG";
+            // echo "HI! SOMETHING  WENT WRONG";
         }
     }
-    public function update($name, $dateofsignup, $isblock, $isadmin, $password, $mobile, $conn)
+    public function update($name, $username, $mobile, $conn)
     {
-        $user_name = $_SESSION['user_name'];
-        $sql = "UPDATE `tbl_user` SET `name`='$name',`dateofsignup`='$dateofsignup',`mobile`='$mobile',`isblock`=$isblock,`is_admin`=$isadmin WHERE `user_name`='$user_name'";
+        // $user_name = $_SESSION['user_name'];
+        $user_id = $_SESSION['user_id'];
+        $sql = "UPDATE `tbl_user` SET `user_name`='$username' ,`name`='$name' ,`mobile`='$mobile' WHERE `user_id`='$user_id'";
+        // echo $sql;
         $result = mysqli_query($conn, $sql);
-        return "Your Profile Successfully Updated!!!";
+        return $result;
     }
     public function update_password($password, $repassword, $conn)
     {
@@ -82,7 +88,8 @@ class User
             $sql = "UPDATE `tbl_user` SET `password`='$repassword'  where `user_name`='$user_name' AND `password`='$password'";
             if ($conn->query($sql) === true) {
                 session_destroy();
-                header('location:../login.php');
+                echo "<script>alert('SUCCESSFULLY UPDATED');window.location.href='../login.php';</script>";
+                // header('location:../login.php');
             }
         } else {
             echo '<script>alert("Your Old Password is Wrong")</script>';

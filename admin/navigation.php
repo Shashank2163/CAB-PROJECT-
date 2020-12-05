@@ -1,12 +1,11 @@
 <?php
-echo '<h1>ADMIN PANEL</h1>
+echo '
     <nav class="navbar navbar-expand-lg bg-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
-            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item">
+          <p id="logo-p"><button id="logo-btn">CED<span id="logo-span">CAB</span></button></p>
+        </li>
                  <li class="nav-item">
                    <a class="nav-link text-light" href="index.php">HOME</a>
                  </li>

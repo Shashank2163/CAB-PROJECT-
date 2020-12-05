@@ -13,40 +13,14 @@ if (!isset($_SESSION['user_name'], $_SESSION['is_user'])) {
         $cab = $_SESSION['cab'];
         $user_id = $_SESSION['user_id'];
         $isblock = 0;
+        date_default_timezone_set('Asia/Kolkata');
         $date = date('Y-m-d H:i:s');
         $obj = new Ride();
         $db = new config();
         $obj->ridedetails($fare, $start, $end, $weight, $date, $user_id, $isblock, $db->conn);
     }
+    unset($_SESSION['start'], $_SESSION['end'], $_SESSION['weight'], $_SESSION['cab'], $_SESSION['fare']);
 }
-if (isset($_GET['action'], $_SESSION['user_id'])) {
-    include('../ride.php');
-    if ($_GET['action'] == 'pastride') {
-        $user_id = $_SESSION['user_id'];
-        $obj1 = new Ride();
-        $db = new config();
-        $result =  $obj1->rideinfo($db->conn, $user_id);
-        $obj2 = new Ride();
-        $db1 = new config();
-        $result2 =  $obj1->total($db1->conn, $user_id);
-        show($result, $result2);
-    }
-}
-if (isset($_GET['action'], $_SESSION['user_id'])) {
-    // include('../ride.php');
-    if ($_GET['action'] == 'fare') {
-        $user_id = $_SESSION['user_id'];
-        $obj1 = new Ride();
-        $db = new config();
-        $result =  $obj1->sort_fare($db->conn, $user_id);
-        $obj2 = new Ride();
-        $db1 = new config();
-        $result2 =  $obj1->total($db1->conn, $user_id);
-        show($result, $result2);
-    }
-}
-
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -58,47 +32,63 @@ if (isset($_GET['action'], $_SESSION['user_id'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>Hello, world!</title>
+    <title>CED CAB</title>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link href="cab.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/4b2ee26aaa.js" crossorigin="anonymous"></script>
-    <script>
-    $(document).ready(function() {
-        $.datepicker.setDefaults({
-            dateFormat: 'yy-mm-dd'
-        });
-        $(function() {
-            $("#from_date").datepicker();
-            $("#to_date").datepicker();
-        });
-        $('#filter').click(function() {
-            var from_date = $('#from_date').val();
-            var to_date = $('#to_date').val();
-            if (from_date != '' && to_date != '') {
-                $.ajax({
-                    url: "ajax.php",
-                    method: "POST",
-                    data: {
-                        from_date: from_date,
-                        to_date: to_date
-                    },
-                    success: function(data) {
-                        $('#main').html(data);
-                    }
-                });
-            } else {
-                alert("Please Select Date");
-            }
-        });
-    });
-    </script>
+    <style>
+    footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: black;
+        color: white;
+        text-align: center;
+        padding: 10px;
+
+
+    }
+
+    #footer-text {
+        color: white;
+    }
+
+    /* body {
+        /* height: 100%; */
+    /* overflow: scroll;
+    } */
+    /* body {
+        margin-bottom: 10px;
+    } */
+
+    #logo-btn {
+        background-color: rgb(255 208 0);
+        width: 100px;
+        height: 38px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    #logo-span {
+        color: red;
+        padding-left: 7px;
+    }
+
+    #logo-p {
+        margin: 6px;
+    }
+    </style>
+
 </head>
 
 <body>
-    <div class="container">
-        <nav class="navbar navbar-expand-sm navbar-light ">
-            <h3 class="btn btn-warning">CED <span class="text-danger">CAB</span></h3>
+    <div class="container-fluid pr-0 pl-0">
+        <nav class="navbar navbar-expand-sm navbar-light bg-dark ">
+            <p id="logo-p"><button id="logo-btn">CED<span id="logo-span">CAB</span></button></p>
+            <!-- <h3 class="btn btn-warning">CED <span class="text-danger">CAB</span></h3> -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span
                     class="navbar-toggler-icon"></span> </button>
@@ -106,109 +96,28 @@ if (isset($_GET['action'], $_SESSION['user_id'])) {
                 <ul class="navbar-nav ml-auto mr-5"></ul>
                 <form class="form-inline my-2 my-lg-0">
                     <a class="btn btn-warning mx-2" href="index.php">BOOK NOW</a>
-                    <a class="btn btn-warning mx-2" href="success.php?&action=fare">SORT BY FARE </a>
-                    <a class="btn btn-warning mx-2" href="success.php?&action=pastride">Past Ride</a>
-                    <a class="btn btn-warning mx-2" href="success.php?&id=2">Filter</a>
-                    <?php if (isset($_SESSION['fare'])) {
-                        echo '<a class="btn btn-warning mx-2" href="../admin/invoice.php">Invoice</a>';
-                    }
-                    ?>
+                    <a class="btn btn-warning mx-2" href="user1.php">DASHBOARD</a>
                     <a class="btn btn-warning mx-2" href="logout.php">Log Out</a>
                     </h3>
                 </form>
             </div>
         </nav>
-    </div>
 
-    <?php if (isset($_GET['id'])) {
-        if ($_GET['id'] == 2) {
-            echo '<div class="container py-5 my-5">
-        <div class="row ml-5 px-4">
-            <div class="col-md-3 col-sm-4">
-                <input type="text" name="from_date" id="from_date" class="form-control" placeholder="From Date" />
-            </div>
-            <div class="col-md-3  col-sm-4">
-                <input type="text" name="to_date" id="to_date" class="form-control" placeholder="To Date" />
-            </div>
-            <div class="col-md-3  col-sm-4">
-                <input type="button" name="filter" id="filter" value="Filter" class="btn btn-info" />
-            </div>
-        </div>
-    </div>';
-        }
-    } ?>
-
-    <div class="container-fluid" id="main">
-
-    </div>
-    <?php
-    if (isset($_GET['id'])) {
-        if ($_GET['id'] == 1) {
-            echo '<div class="placedorder text-center py-5 my-5">
+        <?php
+        if (isset($_GET['id'])) {
+            if ($_GET['id'] == 1) {
+                echo '<div class="placedorder text-center py-5 my-5">
         <h1>Your Request has Been Send Successfully !!!!</h1>
         <p>Thank you for riding with us, we will contact you by email with your ride details.</p>
     </div>';
-        }
-    }
-    ?>
-    <?php
-    function show($result, $result2)
-    {
-        $total1 = 0;
-        echo '<table>
-            <tr>
-                <th>USER ID</th>
-                <th>RIDE DATE/TIME </th>
-                <th>FROM</th>
-                <th>TO</th>
-                <th>DISTANCE</th>
-                <th>WEIGHT</th>
-                <th>STATUS</th>
-                <th>FARE</th>
-            </tr>';
-        if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo '<tr>
-                <td>';
-                echo $row['customer_user_id'];
-                echo '</td>
-                <td>';
-                echo $row['ride_date'];
-                echo   '</td>
-                <td>';
-                echo $row['from_distance'];
-                echo '</td>
-                <td>';
-                echo $row['to_distance'];
-                echo '</td>
-                <td>';
-                echo $row['total_distance'];
-                echo '</td>
-                <td>';
-                echo $row['luggage'];
-                echo '</td>
-                <td>';
-                if ($row['status'] == 0) {
-                    echo 'PENDING';
-                } else {
-                    echo 'SUCCESS';
-                    $total = $row['total_fare'];
-                    $total1 = $total1 + $total;
-                }
-                echo '</td>
-                <td>';
-                echo $row['total_fare'];
-                '</td>
-            </tr>';
             }
-            echo '<tr><td colspan="7">TOTAL SPEND</td><td>';
-            echo $total1;
-            echo '</td></tr>';
         }
-    }
-    echo '<table>';
-    ?>
+        ?>
+
 
 </body>
+<footer>
+    <p id="footer-text">Copyright@<span class="read-more">cedcoss</span>.com</p>
+</footer>
 
 </html>

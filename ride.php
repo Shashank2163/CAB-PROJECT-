@@ -159,7 +159,7 @@ class Ride
 
     function pcountride($conn)
     {
-        $sql = "SELECT * FROM tbl_ride WHERE status=2";
+        $sql = "SELECT * FROM tbl_ride WHERE status=0";
         $result = $conn->query($sql);
         $count = $result->num_rows;
 
@@ -175,14 +175,97 @@ class Ride
 
         return $count;
     }
+    function countride1($conn)
+    {
+        $user_id = $_SESSION['user_id'];
+        $sql = "SELECT * FROM tbl_ride where `customer_user_id`=$user_id";
+        $result = $conn->query($sql);
+        $count = $result->num_rows;
+        return $count;
+    }
+
+    function pcountride1($conn)
+    {
+        $user_id = $_SESSION['user_id'];
+        $sql = "SELECT * FROM tbl_ride WHERE `status`=0 and `customer_user_id`=$user_id";
+        $result = $conn->query($sql);
+        $count = $result->num_rows;
+        return $count;
+    }
+
+
+    function cocountride1($conn)
+    {
+        $user_id = $_SESSION['user_id'];
+        $sql = "SELECT * FROM tbl_ride WHERE `status`=1 and `customer_user_id`=$user_id";
+        $result = $conn->query($sql);
+        $count = $result->num_rows;
+        return $count;
+    }
+    function countride2($conn)
+    {
+        $user_id = $_SESSION['user_id'];
+        $sql = "SELECT * FROM tbl_ride where `customer_user_id`=$user_id";
+        $result = $conn->query($sql);
+        // $count = $result->num_rows;
+        return $result;
+    }
+
+    function pcountride2($conn)
+    {
+        $user_id = $_SESSION['user_id'];
+        $sql = "SELECT * FROM tbl_ride WHERE `status`=0 and `customer_user_id`=$user_id";
+        $result = $conn->query($sql);
+        // $count = $result->num_rows;
+        return $result;
+    }
+
+
+    function cocountride2($conn)
+    {
+        $user_id = $_SESSION['user_id'];
+        $sql = "SELECT * FROM tbl_ride WHERE `status`=1 and `customer_user_id`=$user_id";
+        $result = $conn->query($sql);
+        // $count = $result->num_rows;
+        return $result;
+    }
 
     function cacountride($conn)
     {
         $sql = "SELECT * FROM tbl_ride WHERE status=0";
         $result = $conn->query($sql);
         $count = $result->num_rows;
-
         return $count;
+    }
+
+    function total5($conn)
+    {
+        $user_id = $_SESSION['user_id'];
+        $sql = "SELECT SUM(total_fare)             
+        FROM tbl_ride where `customer_user_id`=$user_id and `status`=1";
+        // echo $sql;
+        $result2 = mysqli_query($conn, $sql);
+        if (mysqli_num_rows($result2) > 0) {
+            while ($row1 = mysqli_fetch_assoc($result2)) {
+                return $result = $row1['SUM(total_fare)'];
+            }
+        }
+    }
+    function cancelride5($conn)
+    {
+        $user_id = $_SESSION['user_id'];
+        $sql = "SELECT * FROM tbl_ride WHERE status=2 and `customer_user_id`=$user_id";
+        $result = $conn->query($sql);
+        $count = $result->num_rows;
+        return $count;
+    }
+    function cancelride6($conn, $user_id)
+    {
+        $user_id = $_SESSION['user_id'];
+        $sql = "SELECT * FROM tbl_ride WHERE status=2 and `customer_user_id`=$user_id";
+        $result = $conn->query($sql);
+        // $count = $result->num_rows;
+        return $result;
     }
 
     function countuser($conn)

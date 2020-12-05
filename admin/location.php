@@ -42,26 +42,38 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>CED CAB</title>
     <link href="style.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <script src="filter.js"></script>
+    <style>
+    footer {
+        padding: 15px;
+        background-color: black;
+        color: white;
+        text-align: center;
+        position: fixed;
+        width: 100%;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+
+    }
+
+    #footer-text {
+        color: white;
+    }
+
+    body {
+        height: 100%;
+    }
+    </style>
     <script>
     $(document).ready(function() {
-        $(function() {
-            $("#location_name").keypress(function(event) {
-                var ew = event.which;
-                if (ew == 32)
-                    return true;
-                if (48 <= ew && ew <= 57)
-                    return true;
-                if (65 <= ew && ew <= 90)
-                    return true;
-                if (97 <= ew && ew <= 122)
-                    return true;
-                return false;
-            });
-        });
+
         $("#btn-9").click(function() {
             var loc_name = $("#location_name").val();
             var distance = $("#distance").val();
@@ -96,7 +108,8 @@ if (isset($_GET['id'])) {
                 },
                 success: function(msg) {
                     $("#btn").show();
-                    $("#main").html(msg + '</br><a href="location.php" id="btn">BACK</a>');
+                    $("#main").html(msg);
+                    // '<a href="location.php" id="btn">BACK</a></br>'
                     // $("#btn").show();
 
                 }
@@ -116,7 +129,8 @@ if (isset($_GET['id'])) {
                     <label for="locname">LOCATION NAME</label>
                 </div>
                 <div class="col-75">
-                    <input type="text" id="location_name" name="location_name" placeholder="Location Name.." required>
+                    <input type="text" id="location_name" name="location_name" placeholder="Location Name.."
+                        pattern="[^(?![0-9]*$)[a-zA-Z0-9]+$]" required>
                 </div>
             </div>
             <div class="row">
@@ -149,24 +163,7 @@ if (isset($_GET['id'])) {
     </div>
 </body>
 <footer>
-    <div class="container-fluid py-5">
-        <div class="row">
-            <div class=" col-md-4  col-sm-4 col-lg-4  col-xs-4 py-2 text-center"> <i
-                    class="fab fa-facebook-f fa-lg white-text px-2"> </i> <i
-                    class="fab fa-twitter fa-lg white-text px-2 "> </i> <i
-                    class="fab fa-instagram fa-lg white-text px-2"> </i> </div>
-            <div class=" col-md-4  col-sm-4  col-lg-4 col-xs-4 text-center">
-                <h3 class="btn btn-warning">CED <span class="text-danger">CAB</span></h3>
-            </div>
-            <div class="col-md-4 col-sm-4  col-lg-4 col-xs-4 text-center">
-                <div class="row py-2">
-                    <div class="col-md-6 col-sm-6 col-lg-4">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
+    <p id="footer-text">Copyright@<span class="read-more">cedcoss</span>.com</p>
 </footer>
 
 </html>

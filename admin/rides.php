@@ -33,7 +33,7 @@ include('header.php'); ?>
         <option value="" selected hidden disabled>SORT BY</option>
         <option value="0">Ride Id</option>
         <!-- <option value="4">Weight</option> -->
-        <option value="5">Ride Fare</option>
+        <option value="6">Ride Fare</option>
     </select>
     <?php
     show1();
@@ -45,12 +45,19 @@ include('header.php'); ?>
     ?>
     <table id="myTable">
         <tr>
+            <th colspan="10">
+                <center>
+                    <h3>ALL RIDE REQUEST</h3>
+                </center>
+            </th>
+        </tr>
+        <tr>
             <th>RIDE ID</th>
             <th>RIDE DATE</th>
             <th>FROM</th>
             <th>TO</th>
-            <th>LUGGAGE</th>
-            <th>TOTAL FARE</th>
+            <th>LUGGAGE (K.G.)</th>
+            <th>TOTAL FARE (₹)</th>
             <th>BLOCK(0)/UNBLOCK(1)</th>
             <th>ACCEPT</th>
             <th>CANCEL</th>
@@ -73,7 +80,7 @@ include('header.php'); ?>
                             } else if ($row['status'] == 2) {
                                 echo "CANCEL";
                             } else {
-                                echo "PENDING";
+                                echo "<span class='blink-two'>PENDING</span>";
                             } ?></td>
             <td>
                 <a class="btn-accept" href="rides.php?ride_id=<?php echo $row['ride_id']; ?>&action=accept" id="accept">
@@ -91,24 +98,7 @@ include('header.php'); ?>
 
 </body>
 <footer>
-    <div class="container-fluid py-5">
-        <div class="row">
-            <div class=" col-md-4  col-sm-4 col-lg-4  col-xs-4 py-2 text-center"> <i
-                    class="fab fa-facebook-f fa-lg white-text px-2"> </i> <i
-                    class="fab fa-twitter fa-lg white-text px-2 "> </i> <i
-                    class="fab fa-instagram fa-lg white-text px-2"> </i> </div>
-            <div class=" col-md-4  col-sm-4  col-lg-4 col-xs-4 text-center">
-                <h3 class="btn btn-warning">CED <span class="text-danger">CAB</span></h3>
-            </div>
-            <div class="col-md-4 col-sm-4  col-lg-4 col-xs-4 text-center">
-                <div class="row py-2">
-                    <div class="col-md-6 col-sm-6 col-lg-4">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
+    <p id="footer-text">Copyright@<span class="read-more">cedcoss</span>.com</p>
 </footer>
 
 </html>
